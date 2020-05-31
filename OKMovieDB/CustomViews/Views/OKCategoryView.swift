@@ -30,19 +30,19 @@ class OKCategoryView: UIView {
         addSubviews(categoryImageView, categoryTitleLabel)
         
         categoryImageView.clipsToBounds                = true
-        categoryImageView.contentMode                  = .scaleAspectFit
+        categoryImageView.contentMode                  = .scaleAspectFill
         categoryImageView.tintColor                    = .label
-        categoryImageView.alpha                        = 0.1
+        categoryImageView.alpha                        = 0.3
         categoryImageView.layer.borderWidth            = 2
         categoryImageView.layer.cornerRadius           = 16
         
         NSLayoutConstraint.activate([
             categoryImageView.topAnchor.constraint(equalTo: self.topAnchor),
-            categoryImageView.bottomAnchor.constraint(equalTo: self.bottomAnchor),
+            categoryImageView.bottomAnchor.constraint(equalTo: self.bottomAnchor, constant: -20),
             categoryImageView.leadingAnchor.constraint(equalTo: self.leadingAnchor),
             categoryImageView.trailingAnchor.constraint(equalTo: self.trailingAnchor),
             
-            categoryTitleLabel.centerYAnchor.constraint(equalTo: categoryImageView.centerYAnchor),
+            categoryTitleLabel.topAnchor.constraint(equalTo: categoryImageView.bottomAnchor),
             categoryTitleLabel.leadingAnchor.constraint(equalTo: categoryImageView.leadingAnchor),
             categoryTitleLabel.trailingAnchor.constraint(equalTo: categoryImageView.trailingAnchor),
             categoryTitleLabel.heightAnchor.constraint(equalToConstant: 18)
