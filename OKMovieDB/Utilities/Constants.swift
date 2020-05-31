@@ -21,3 +21,12 @@ enum SFSymbols {
     static let camera       = UIImage(systemName: "video")
     static let camerFilled  = UIImage(systemName: "video.fill")
 }
+
+enum Genres {
+    static let horror: Int      = 27
+    static let romance: Int     = 10749
+    static let action: Int      = 28
+    static let animation: Int   = 16
+    static let comedy: Int      = 35
+    static let history: Int     = 36
+}

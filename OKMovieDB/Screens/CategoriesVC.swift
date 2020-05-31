@@ -8,10 +8,9 @@
 
 import UIKit
 
-let horrorView = OKCategoryView()
-
 class CategoriesVC: UIViewController {
     
+    let horrorView = OKCategoryView()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -23,7 +22,8 @@ class CategoriesVC: UIViewController {
     
     
     @objc func viewTapping(recognizer: UITapGestureRecognizer) {
-        print("UIView is tapped")
+        let movieListVC = MovieListVC()
+        navigationController?.pushViewController(movieListVC, animated: true)
     }
     
     func configureCategoryView() {
