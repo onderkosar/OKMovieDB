@@ -16,6 +16,10 @@
 		95DEE7652483CD8600EFA5AB /* CategoriesVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95DEE7642483CD8600EFA5AB /* CategoriesVC.swift */; };
 		95DEE7682483CDDF00EFA5AB /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95DEE7672483CDDF00EFA5AB /* Constants.swift */; };
 		95DEE76A2483CE9200EFA5AB /* Keys.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95DEE7692483CE9200EFA5AB /* Keys.swift */; };
+		95DEE76E2483D14800EFA5AB /* OKTitleLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95DEE76D2483D14800EFA5AB /* OKTitleLabel.swift */; };
+		95DEE7702483D24100EFA5AB /* OKCategoryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95DEE76F2483D24100EFA5AB /* OKCategoryView.swift */; };
+		95DEE7732483D2EF00EFA5AB /* UIView+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95DEE7722483D2EF00EFA5AB /* UIView+Ext.swift */; };
+		95DEE7752483DA2D00EFA5AB /* UIHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95DEE7742483DA2D00EFA5AB /* UIHelper.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -30,6 +34,10 @@
 		95DEE7642483CD8600EFA5AB /* CategoriesVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoriesVC.swift; sourceTree = "<group>"; };
 		95DEE7672483CDDF00EFA5AB /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 		95DEE7692483CE9200EFA5AB /* Keys.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Keys.swift; sourceTree = "<group>"; };
+		95DEE76D2483D14800EFA5AB /* OKTitleLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OKTitleLabel.swift; sourceTree = "<group>"; };
+		95DEE76F2483D24100EFA5AB /* OKCategoryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OKCategoryView.swift; sourceTree = "<group>"; };
+		95DEE7722483D2EF00EFA5AB /* UIView+Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView+Ext.swift"; sourceTree = "<group>"; };
+		95DEE7742483DA2D00EFA5AB /* UIHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIHelper.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -62,6 +70,7 @@
 		95DEE7462483C99300EFA5AB /* OKMovieDB */ = {
 			isa = PBXGroup;
 			children = (
+				95DEE7712483D2E100EFA5AB /* Extensions */,
 				95DEE7662483CDD000EFA5AB /* Utilities */,
 				95DEE75E2483CC3A00EFA5AB /* Model */,
 				95DEE75D2483CC2C00EFA5AB /* CustomViews */,
@@ -95,6 +104,8 @@
 		95DEE75D2483CC2C00EFA5AB /* CustomViews */ = {
 			isa = PBXGroup;
 			children = (
+				95DEE76C2483D12800EFA5AB /* Labels */,
+				95DEE76B2483D11E00EFA5AB /* Views */,
 				95DEE75F2483CC6200EFA5AB /* TabBarControllers */,
 			);
 			path = CustomViews;
@@ -120,8 +131,33 @@
 			children = (
 				95DEE7692483CE9200EFA5AB /* Keys.swift */,
 				95DEE7672483CDDF00EFA5AB /* Constants.swift */,
+				95DEE7742483DA2D00EFA5AB /* UIHelper.swift */,
 			);
 			path = Utilities;
+			sourceTree = "<group>";
+		};
+		95DEE76B2483D11E00EFA5AB /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				95DEE76F2483D24100EFA5AB /* OKCategoryView.swift */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
+		95DEE76C2483D12800EFA5AB /* Labels */ = {
+			isa = PBXGroup;
+			children = (
+				95DEE76D2483D14800EFA5AB /* OKTitleLabel.swift */,
+			);
+			path = Labels;
+			sourceTree = "<group>";
+		};
+		95DEE7712483D2E100EFA5AB /* Extensions */ = {
+			isa = PBXGroup;
+			children = (
+				95DEE7722483D2EF00EFA5AB /* UIView+Ext.swift */,
+			);
+			path = Extensions;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -195,12 +231,16 @@
 			buildActionMask = 2147483647;
 			files = (
 				95DEE7632483CD7400EFA5AB /* FavoritesVC.swift in Sources */,
+				95DEE76E2483D14800EFA5AB /* OKTitleLabel.swift in Sources */,
+				95DEE7732483D2EF00EFA5AB /* UIView+Ext.swift in Sources */,
+				95DEE7752483DA2D00EFA5AB /* UIHelper.swift in Sources */,
 				95DEE7612483CC9A00EFA5AB /* OKTabBarController.swift in Sources */,
 				95DEE7482483C99300EFA5AB /* AppDelegate.swift in Sources */,
 				95DEE74A2483C99300EFA5AB /* SceneDelegate.swift in Sources */,
 				95DEE76A2483CE9200EFA5AB /* Keys.swift in Sources */,
 				95DEE7652483CD8600EFA5AB /* CategoriesVC.swift in Sources */,
 				95DEE7682483CDDF00EFA5AB /* Constants.swift in Sources */,
+				95DEE7702483D24100EFA5AB /* OKCategoryView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

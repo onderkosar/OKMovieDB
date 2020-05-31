@@ -20,5 +20,4 @@ enum SFSymbols {
     
     static let camera       = UIImage(systemName: "video")
     static let camerFilled  = UIImage(systemName: "video.fill")
-    
 }
