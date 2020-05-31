@@ -9,19 +9,27 @@
 /* Begin PBXBuildFile section */
 		95DEE7482483C99300EFA5AB /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95DEE7472483C99300EFA5AB /* AppDelegate.swift */; };
 		95DEE74A2483C99300EFA5AB /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95DEE7492483C99300EFA5AB /* SceneDelegate.swift */; };
-		95DEE74C2483C99300EFA5AB /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95DEE74B2483C99300EFA5AB /* ViewController.swift */; };
 		95DEE7512483C99400EFA5AB /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 95DEE7502483C99400EFA5AB /* Assets.xcassets */; };
 		95DEE7542483C99400EFA5AB /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 95DEE7522483C99400EFA5AB /* LaunchScreen.storyboard */; };
+		95DEE7612483CC9A00EFA5AB /* OKTabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95DEE7602483CC9A00EFA5AB /* OKTabBarController.swift */; };
+		95DEE7632483CD7400EFA5AB /* FavoritesVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95DEE7622483CD7400EFA5AB /* FavoritesVC.swift */; };
+		95DEE7652483CD8600EFA5AB /* CategoriesVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95DEE7642483CD8600EFA5AB /* CategoriesVC.swift */; };
+		95DEE7682483CDDF00EFA5AB /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95DEE7672483CDDF00EFA5AB /* Constants.swift */; };
+		95DEE76A2483CE9200EFA5AB /* Keys.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95DEE7692483CE9200EFA5AB /* Keys.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		95DEE7442483C99300EFA5AB /* OKMovieDB.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = OKMovieDB.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		95DEE7472483C99300EFA5AB /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		95DEE7492483C99300EFA5AB /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
-		95DEE74B2483C99300EFA5AB /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
 		95DEE7502483C99400EFA5AB /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		95DEE7532483C99400EFA5AB /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		95DEE7552483C99400EFA5AB /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		95DEE7602483CC9A00EFA5AB /* OKTabBarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OKTabBarController.swift; sourceTree = "<group>"; };
+		95DEE7622483CD7400EFA5AB /* FavoritesVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavoritesVC.swift; sourceTree = "<group>"; };
+		95DEE7642483CD8600EFA5AB /* CategoriesVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoriesVC.swift; sourceTree = "<group>"; };
+		95DEE7672483CDDF00EFA5AB /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
+		95DEE7692483CE9200EFA5AB /* Keys.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Keys.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -54,14 +62,66 @@
 		95DEE7462483C99300EFA5AB /* OKMovieDB */ = {
 			isa = PBXGroup;
 			children = (
-				95DEE7472483C99300EFA5AB /* AppDelegate.swift */,
-				95DEE7492483C99300EFA5AB /* SceneDelegate.swift */,
-				95DEE74B2483C99300EFA5AB /* ViewController.swift */,
-				95DEE7502483C99400EFA5AB /* Assets.xcassets */,
-				95DEE7522483C99400EFA5AB /* LaunchScreen.storyboard */,
+				95DEE7662483CDD000EFA5AB /* Utilities */,
+				95DEE75E2483CC3A00EFA5AB /* Model */,
+				95DEE75D2483CC2C00EFA5AB /* CustomViews */,
+				95DEE75C2483CBF700EFA5AB /* Screens */,
+				95DEE75B2483CBD900EFA5AB /* Support */,
 				95DEE7552483C99400EFA5AB /* Info.plist */,
 			);
 			path = OKMovieDB;
+			sourceTree = "<group>";
+		};
+		95DEE75B2483CBD900EFA5AB /* Support */ = {
+			isa = PBXGroup;
+			children = (
+				95DEE7472483C99300EFA5AB /* AppDelegate.swift */,
+				95DEE7492483C99300EFA5AB /* SceneDelegate.swift */,
+				95DEE7502483C99400EFA5AB /* Assets.xcassets */,
+				95DEE7522483C99400EFA5AB /* LaunchScreen.storyboard */,
+			);
+			path = Support;
+			sourceTree = "<group>";
+		};
+		95DEE75C2483CBF700EFA5AB /* Screens */ = {
+			isa = PBXGroup;
+			children = (
+				95DEE7642483CD8600EFA5AB /* CategoriesVC.swift */,
+				95DEE7622483CD7400EFA5AB /* FavoritesVC.swift */,
+			);
+			path = Screens;
+			sourceTree = "<group>";
+		};
+		95DEE75D2483CC2C00EFA5AB /* CustomViews */ = {
+			isa = PBXGroup;
+			children = (
+				95DEE75F2483CC6200EFA5AB /* TabBarControllers */,
+			);
+			path = CustomViews;
+			sourceTree = "<group>";
+		};
+		95DEE75E2483CC3A00EFA5AB /* Model */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		95DEE75F2483CC6200EFA5AB /* TabBarControllers */ = {
+			isa = PBXGroup;
+			children = (
+				95DEE7602483CC9A00EFA5AB /* OKTabBarController.swift */,
+			);
+			path = TabBarControllers;
+			sourceTree = "<group>";
+		};
+		95DEE7662483CDD000EFA5AB /* Utilities */ = {
+			isa = PBXGroup;
+			children = (
+				95DEE7692483CE9200EFA5AB /* Keys.swift */,
+				95DEE7672483CDDF00EFA5AB /* Constants.swift */,
+			);
+			path = Utilities;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -134,9 +194,13 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				95DEE74C2483C99300EFA5AB /* ViewController.swift in Sources */,
+				95DEE7632483CD7400EFA5AB /* FavoritesVC.swift in Sources */,
+				95DEE7612483CC9A00EFA5AB /* OKTabBarController.swift in Sources */,
 				95DEE7482483C99300EFA5AB /* AppDelegate.swift in Sources */,
 				95DEE74A2483C99300EFA5AB /* SceneDelegate.swift in Sources */,
+				95DEE76A2483CE9200EFA5AB /* Keys.swift in Sources */,
+				95DEE7652483CD8600EFA5AB /* CategoriesVC.swift in Sources */,
+				95DEE7682483CDDF00EFA5AB /* Constants.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

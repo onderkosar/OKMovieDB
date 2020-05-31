@@ -1,5 +1,5 @@
 //
-//  ViewController.swift
+//  FavoritesVC.swift
 //  OKMovieDB
 //
 //  Created by Önder Koşar on 31.05.2020.
@@ -8,13 +8,19 @@
 
 import UIKit
 
-class ViewController: UIViewController {
 
+
+class FavoritesVC: UIViewController {
+    
+    
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-        // Do any additional setup after loading the view.
+        view.backgroundColor = .systemOrange
+        
+        
     }
-
-
+    
+    
+    
 }
-
