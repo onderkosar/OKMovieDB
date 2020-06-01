@@ -11,7 +11,7 @@ import UIKit
 class OKCategoryView: UIView {
     
     let categoryImageView   = UIImageView()
-    let categoryTitleLabel  = OKTitleLabel(textAlignment: .center, fontSize: 25)
+    let categoryTitleLabel  = OKTitleLabel(textAlignment: .center, fontSize: 15)
     
     override init(frame: CGRect) {
         super.init(frame: frame)

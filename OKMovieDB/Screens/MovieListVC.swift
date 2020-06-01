@@ -8,7 +8,7 @@
 
 import UIKit
 
-class MovieListVC: UIViewController, UICollectionViewDelegate {
+class MovieListVC: OKDataLoadingVC, UICollectionViewDelegate {
     
     enum Section {
         case main
@@ -20,7 +20,7 @@ class MovieListVC: UIViewController, UICollectionViewDelegate {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        view.backgroundColor = .systemBlue
+        view.backgroundColor = .systemBackground
         configureCollectionView()
         configureDataSource()
         
@@ -36,7 +36,12 @@ class MovieListVC: UIViewController, UICollectionViewDelegate {
     }
     
     func getMovies(for genreId: Int) {
-        NetworkManager.shared.getMovies(for: genreId, page: 1) { result in
+        showLoadingView()
+        
+        NetworkManager.shared.getMovies(for: genreId, page: 1) { [weak self] result in
+            guard let self = self else { return }
+            self.dismissLoadingView()
+            
             switch result {
             case.success(let movies):
                 self.movies = movies
@@ -46,6 +51,7 @@ class MovieListVC: UIViewController, UICollectionViewDelegate {
             }
         }
     }
+    
     
     func configureDataSource() {
         dataSource = UICollectionViewDiffableDataSource<Section, Results>(collectionView: collectionView, cellProvider: { (collectionView, indexPath, movie) -> UICollectionViewCell? in
