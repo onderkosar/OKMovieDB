@@ -17,13 +17,16 @@ class MovieListVC: OKDataLoadingVC {
 
     var genreId: Int!
     
-    var movies: [Results]   = []
-    var page                = 1
-    var hasMoreMovies       = true
+    var movies: [Results]           = []
+    var filteredMovies: [Results]   = []
+    
+    var page                        = 1
+    var hasMoreMovies               = true
     
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .systemBackground
+        configureSearchController()
         configureCollectionView()
         configureDataSource()
         getMovies(for: genreId, page: page)
@@ -39,6 +42,15 @@ class MovieListVC: OKDataLoadingVC {
         collectionView.register(MovieCell.self, forCellWithReuseIdentifier: MovieCell.reuseID)
     }
     
+    func configureSearchController() {
+        let searchController = UISearchController()
+        searchController.searchBar.delegate         = self
+        searchController.searchResultsUpdater       = self
+        searchController.searchBar.placeholder      = "Search for a movie"
+        navigationItem.searchController             = searchController
+        navigationItem.hidesSearchBarWhenScrolling  = false
+    }
+    
     func getMovies(for genreId: Int, page: Int) {
         showLoadingView()
         
@@ -50,7 +62,14 @@ class MovieListVC: OKDataLoadingVC {
             case.success(let movies):
                 if movies.count < 20 { self.hasMoreMovies = false }
                 self.movies.append(contentsOf: movies)
-                self.updateData()
+                
+                if self.movies.isEmpty {
+                    let message = "There is no movie left in this category, that was the last page."
+                    DispatchQueue.main.async { self.showEmptyStateView(with: message, in: self.view) }
+                    return
+                }
+                
+                self.updateData(on: self.movies)
             case.failure(let error):
                 print(error.rawValue)
             }
@@ -67,7 +86,7 @@ class MovieListVC: OKDataLoadingVC {
         })
     }
     
-    func updateData() {
+    func updateData(on movies: [Results]) {
         var snapshot = NSDiffableDataSourceSnapshot<Section, Results>()
         snapshot.appendSections([.main])
         snapshot.appendItems(movies)
@@ -88,4 +107,18 @@ extension MovieListVC: UICollectionViewDelegate {
             getMovies(for: genreId, page: page)
         }
     }
+}
+
+extension MovieListVC: UISearchResultsUpdating, UISearchBarDelegate {
+    
+    func updateSearchResults(for searchController: UISearchController) {
+        guard let filter = searchController.searchBar.text, !filter.isEmpty else { return }
+        filteredMovies = movies.filter { $0.title.lowercased().contains(filter.lowercased()) }
+        updateData(on: filteredMovies)
+    }
+    
+    func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
+        updateData(on: movies)
+    }
+    
 }

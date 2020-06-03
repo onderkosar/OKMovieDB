@@ -32,7 +32,7 @@ class OKCategoryView: UIView {
         categoryImageView.clipsToBounds                = true
         categoryImageView.contentMode                  = .scaleAspectFill
         categoryImageView.tintColor                    = .label
-        categoryImageView.alpha                        = 0.3
+        categoryImageView.alpha                        = 0.8
         categoryImageView.layer.borderWidth            = 2
         categoryImageView.layer.cornerRadius           = 16
         
