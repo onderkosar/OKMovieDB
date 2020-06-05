@@ -22,6 +22,7 @@ class MovieListVC: OKDataLoadingVC {
     
     var page                        = 1
     var hasMoreMovies               = true
+    var isSearching                 = false
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -71,7 +72,7 @@ class MovieListVC: OKDataLoadingVC {
                 
                 self.updateData(on: self.movies)
             case.failure(let error):
-                print(error.rawValue)
+                self.presentOKAlertOnMainThread(title: "Something went wrong.", message: error.rawValue, buttonTitle: "Ok")
             }
         }
     }
@@ -80,7 +81,7 @@ class MovieListVC: OKDataLoadingVC {
     func configureDataSource() {
         dataSource = UICollectionViewDiffableDataSource<Section, Results>(collectionView: collectionView, cellProvider: { (collectionView, indexPath, movie) -> UICollectionViewCell? in
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: MovieCell.reuseID, for: indexPath) as! MovieCell
-            cell.set(movie: movie)
+            cell.set(movies: movie)
 
             return cell
         })
@@ -107,17 +108,30 @@ extension MovieListVC: UICollectionViewDelegate {
             getMovies(for: genreId, page: page)
         }
     }
+    
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        let activeArray     = isSearching ? filteredMovies : movies
+        let movies          = activeArray[indexPath.item]
+        
+        let destVC          = MovieInfoVC()
+        destVC.moviename    = movies.title
+        destVC.movieid      = movies.id
+        let navController   = UINavigationController(rootViewController: destVC)
+        present(navController, animated: true)
+    }
 }
 
 extension MovieListVC: UISearchResultsUpdating, UISearchBarDelegate {
     
     func updateSearchResults(for searchController: UISearchController) {
         guard let filter = searchController.searchBar.text, !filter.isEmpty else { return }
+        isSearching = true
         filteredMovies = movies.filter { $0.title.lowercased().contains(filter.lowercased()) }
         updateData(on: filteredMovies)
     }
     
     func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
+        isSearching = false
         updateData(on: movies)
     }
     

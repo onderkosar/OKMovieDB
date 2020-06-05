@@ -1,14 +1,18 @@
 //
-//  Movie.swift
+//  Movies.swift
 //  OKMovieDB
 //
-//  Created by Önder Koşar on 31.05.2020.
+//  Created by Önder Koşar on 5.06.2020.
 //  Copyright © 2020 Önder Koşar. All rights reserved.
 //
 
 import Foundation
 
-struct Movie: Codable, Hashable {
+struct Movies: Codable, Hashable {
+    var results: [Results]
+}
+
+struct Results: Codable, Hashable {
     var title: String
     var id: Int
     var overview: String?

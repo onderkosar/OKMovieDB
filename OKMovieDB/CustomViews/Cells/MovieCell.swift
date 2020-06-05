@@ -29,9 +29,9 @@ class MovieCell: UICollectionViewCell {
     }
 
     
-    func set(movie: Results) {
-        moviePosterView.categoryImageView.downloadImage(fromURL: "https://image.tmdb.org/t/p/w500\(movie.backdropPath ?? posterID)")
-        moviePosterView.categoryTitleLabel.text = movie.title
+    func set(movies: Results) {
+        moviePosterView.categoryImageView.downloadImage(fromURL: "https://image.tmdb.org/t/p/w500\(movies.backdropPath ?? posterID)")
+        moviePosterView.categoryTitleLabel.text = movies.title
     }
     
     private func configure() {
