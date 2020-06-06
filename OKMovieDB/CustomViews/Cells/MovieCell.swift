@@ -9,14 +9,10 @@
 import UIKit
 
 class MovieCell: UICollectionViewCell {
-    static let reuseID  = "MovieCell"
+    static let reuseID          = "MovieCell"
     
-    let moviePosterView = OKCategoryView()
-    
-    let posterPAth: String = "https://image.tmdb.org/t/p/w500"
-    let posterID: String = "/xBHvZcjRiWyobQ9kxBhO6B2dtRI.jpg"
-    
-    
+    let moviePosterView         = OKCategoryView()
+    let imageBaseUrl: String    = "https://image.tmdb.org/t/p/w500"
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -30,7 +26,7 @@ class MovieCell: UICollectionViewCell {
 
     
     func set(movies: Results) {
-        moviePosterView.categoryImageView.downloadImage(fromURL: "https://image.tmdb.org/t/p/w500\(movies.backdropPath ?? posterID)")
+        moviePosterView.categoryImageView.downloadImage(fromURL: imageBaseUrl + movies.backdropPath)
         moviePosterView.categoryTitleLabel.text = movies.title
     }
     

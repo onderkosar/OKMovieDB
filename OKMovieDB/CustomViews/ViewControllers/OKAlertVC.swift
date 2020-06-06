@@ -13,7 +13,7 @@ class OKAlertVC: UIViewController {
     let containerView   = OKAlertContainerView()
     let titleLabel      = OKTitleLabel(textAlignment: .center, fontSize: 20)
     let messageLabel    = OKBodyLabel(textAlignment: .center)
-    let actionButton    = OKButton(backgroundColor: .systemPink, title: "Ok")
+    let actionButton    = OKButton(backgroundColor: .systemRed, title: "Ok")
     
     var alertTitle: String?
     var message: String?

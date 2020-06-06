@@ -10,7 +10,7 @@ import UIKit
 
 class OKCategoryView: UIView {
     
-    let categoryImageView   = UIImageView()
+    let categoryImageView   = OKPosterImageView(frame: .zero)
     let categoryTitleLabel  = OKTitleLabel(textAlignment: .center, fontSize: 15)
     
     override init(frame: CGRect) {
@@ -28,21 +28,22 @@ class OKCategoryView: UIView {
         self.isUserInteractionEnabled                  = true
         
         addSubviews(categoryImageView, categoryTitleLabel)
+
+        categoryImageView.tintColor         = .label
+        categoryImageView.alpha             = 0.8
+        categoryImageView.layer.borderWidth = 2
         
-        categoryImageView.clipsToBounds                = true
-        categoryImageView.contentMode                  = .scaleAspectFill
-        categoryImageView.tintColor                    = .label
-        categoryImageView.alpha                        = 0.8
-        categoryImageView.layer.borderWidth            = 2
-        categoryImageView.layer.cornerRadius           = 16
-        
+        let imgWidth: CGFloat = 150
+        let imgHeight: CGFloat = imgWidth*9/16
+
         NSLayoutConstraint.activate([
-            categoryImageView.topAnchor.constraint(equalTo: self.topAnchor),
-            categoryImageView.bottomAnchor.constraint(equalTo: self.bottomAnchor, constant: -20),
-            categoryImageView.leadingAnchor.constraint(equalTo: self.leadingAnchor),
-            categoryImageView.trailingAnchor.constraint(equalTo: self.trailingAnchor),
             
-            categoryTitleLabel.topAnchor.constraint(equalTo: categoryImageView.bottomAnchor),
+            categoryImageView.topAnchor.constraint(equalTo: self.topAnchor),
+            categoryImageView.centerXAnchor.constraint(equalTo: self.centerXAnchor),
+            categoryImageView.widthAnchor.constraint(equalToConstant: imgWidth),
+            categoryImageView.heightAnchor.constraint(equalToConstant: imgHeight),
+            
+            categoryTitleLabel.topAnchor.constraint(equalTo: categoryImageView.bottomAnchor, constant: 5),
             categoryTitleLabel.leadingAnchor.constraint(equalTo: categoryImageView.leadingAnchor),
             categoryTitleLabel.trailingAnchor.constraint(equalTo: categoryImageView.trailingAnchor),
             categoryTitleLabel.heightAnchor.constraint(equalToConstant: 18)

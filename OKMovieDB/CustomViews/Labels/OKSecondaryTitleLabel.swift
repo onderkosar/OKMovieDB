@@ -1,14 +1,14 @@
 //
-//  OKTitleLabel.swift
+//  OKSecondaryTitleLabel.swift
 //  OKMovieDB
 //
-//  Created by Önder Koşar on 31.05.2020.
+//  Created by Önder Koşar on 6.06.2020.
 //  Copyright © 2020 Önder Koşar. All rights reserved.
 //
 
 import UIKit
 
-class OKTitleLabel: UILabel {
+class OKSecondaryTitleLabel: UILabel {
     
     
     override init(frame: CGRect) {
@@ -20,10 +20,9 @@ class OKTitleLabel: UILabel {
         fatalError("init(coder:) has not been implemented")
     }
     
-    convenience init(textAlignment: NSTextAlignment, fontSize: CGFloat) {
+    convenience init(fontSize: CGFloat) {
         self.init(frame: .zero)
-        self.textAlignment  = textAlignment
-        self.font           = UIFont.systemFont(ofSize: fontSize, weight: .bold)
+        self.font = UIFont.systemFont(ofSize: fontSize, weight: .medium)
     }
     
     
@@ -31,7 +30,7 @@ class OKTitleLabel: UILabel {
         translatesAutoresizingMaskIntoConstraints = false
         
         adjustsFontSizeToFitWidth   = true
-        textColor                   = .label
+        textColor                   = .secondaryLabel
         minimumScaleFactor          = 0.9
         lineBreakMode               = .byTruncatingTail
     }

@@ -114,8 +114,8 @@ extension MovieListVC: UICollectionViewDelegate {
         let movies          = activeArray[indexPath.item]
         
         let destVC          = MovieInfoVC()
-        destVC.moviename    = movies.title
-        destVC.movieid      = movies.id
+        destVC.movieId      = movies.id
+        
         let navController   = UINavigationController(rootViewController: destVC)
         present(navController, animated: true)
     }

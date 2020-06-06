@@ -13,9 +13,9 @@ struct Movies: Codable, Hashable {
 }
 
 struct Results: Codable, Hashable {
-    var title: String
-    var id: Int
-    var overview: String?
-    var posterPath: String?
-    var backdropPath: String?
+    let title: String
+    let id: Int
+//    var overview: String?
+//    var posterPath: String?
+    let backdropPath: String
 }

@@ -27,9 +27,11 @@ class OKButton: UIButton {
     
     private func configure() {
         translatesAutoresizingMaskIntoConstraints = false
-        setTitleColor(.white, for: .normal)
+        
         layer.cornerRadius  = 10
         titleLabel?.font    = UIFont.preferredFont(forTextStyle: .headline)
+        
+        setTitleColor(.white, for: .normal)
     }
     
     func set(backgroundColor: UIColor, title: String) {

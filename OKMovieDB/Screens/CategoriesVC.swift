@@ -17,8 +17,8 @@ class CategoriesVC: UIViewController {
     let historyView     = OKCategoryView()
     let animationView   = OKCategoryView()
     
-    var allViews: [OKCategoryView] = []
-    var allString: [String] = []
+    var allViews: [OKCategoryView]  = []
+    var allString: [String]         = []
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -89,7 +89,7 @@ class CategoriesVC: UIViewController {
         for item in allViews {
             view.addSubview(item)
             NSLayoutConstraint.activate([
-                item.heightAnchor.constraint(equalToConstant: UIHelper.twoColumnWidht(in: view)),
+                item.heightAnchor.constraint(equalToConstant: UIHelper.twoColumnWidht(in: view)*4/5),
                 item.widthAnchor.constraint(equalToConstant: UIHelper.twoColumnWidht(in: view))
             ])
         }
