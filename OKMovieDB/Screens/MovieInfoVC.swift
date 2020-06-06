@@ -12,6 +12,7 @@ import UIKit
 
 class MovieInfoVC: UIViewController {
     
+    let scrollView          = UIScrollView()
     let headerView = UIView()
     
     var movieId : Int!
@@ -20,7 +21,7 @@ class MovieInfoVC: UIViewController {
         super.viewDidLoad()
         configureViewController()
         getMovieInfo()
-        layoutUI()
+        configureScrollView()
     }
     
     @objc func dismissVC() {
@@ -56,20 +57,19 @@ class MovieInfoVC: UIViewController {
         navigationItem.leftBarButtonItem    = favButton
     }
     
-    func layoutUI() {
-        view.addSubview(headerView)
+    func configureScrollView() {
+        view.addSubview(scrollView)
+        scrollView.addSubview(headerView)
         
-        headerView.translatesAutoresizingMaskIntoConstraints = false
+        scrollView.pinToEdges(of: view)
+        headerView.pinToEdges(of: scrollView)
         
         NSLayoutConstraint.activate([
-            headerView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
-            headerView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor),
-            headerView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
-            headerView.trailingAnchor.constraint(equalTo:view.trailingAnchor)
+            headerView.widthAnchor.constraint(equalTo: scrollView.widthAnchor),
+            headerView.heightAnchor.constraint(equalToConstant: 800)
         ])
     }
-    
-    
+        
     func add(childVC: UIViewController, to containerView: UIView) {
         addChild(childVC)
         containerView.addSubview(childVC.view)
