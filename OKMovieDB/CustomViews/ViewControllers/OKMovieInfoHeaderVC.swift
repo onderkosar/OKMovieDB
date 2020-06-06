@@ -8,8 +8,6 @@
 
 import UIKit
 
-
-
 class OKMovieInfoHeaderVC: UIViewController {
     
     let imageBaseUrl        = "https://image.tmdb.org/t/p/w500"
@@ -43,7 +41,7 @@ class OKMovieInfoHeaderVC: UIViewController {
     func configureUIElements() {
         posterImageView.downloadImage(fromURL: imageBaseUrl + movie.posterPath)
         movieTitleLabel.text    = movie.title
-        releaseDateLabel.text   = movie.releaseDate
+        releaseDateLabel.text   = movie.releaseDate.convertToDisplayFormat()
         
         dateImageView.image     = SFSymbols.calendar
         dateImageView.tintColor = .secondaryLabel
@@ -59,8 +57,8 @@ class OKMovieInfoHeaderVC: UIViewController {
         dateImageView.translatesAutoresizingMaskIntoConstraints = false
         overviewLabel.numberOfLines = 10
         
-        let posterHeight: CGFloat             = view.bounds.width
-        let posterWidth:CGFloat               = posterHeight*2/3
+        let posterHeight: CGFloat       = view.bounds.width
+        let posterWidth:CGFloat         = posterHeight*2/3
         let padding: CGFloat            = 20
         let textImagePadding: CGFloat   = 12
         

@@ -24,6 +24,7 @@ class MovieListVC: OKDataLoadingVC {
     var hasMoreMovies               = true
     var isSearching                 = false
     
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .systemBackground
@@ -38,8 +39,8 @@ class MovieListVC: OKDataLoadingVC {
     func configureCollectionView() {
         collectionView = UICollectionView(frame: view.bounds, collectionViewLayout: UIHelper.createTwoColumnFlowLayout(in: view))
         view.addSubview(collectionView)
-        collectionView.delegate = self
-        collectionView.backgroundColor = .systemBackground
+        collectionView.delegate         = self
+        collectionView.backgroundColor  = .systemBackground
         collectionView.register(MovieCell.self, forCellWithReuseIdentifier: MovieCell.reuseID)
     }
     
@@ -134,5 +135,4 @@ extension MovieListVC: UISearchResultsUpdating, UISearchBarDelegate {
         isSearching = false
         updateData(on: movies)
     }
-    
 }

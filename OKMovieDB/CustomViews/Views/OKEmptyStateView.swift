@@ -8,8 +8,6 @@
 
 import UIKit
 
-
-
 class OKEmptyStateView: UIView {
     
     let messageLabel = OKTitleLabel(textAlignment: .center, fontSize: 28)

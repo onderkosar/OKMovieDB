@@ -11,9 +11,7 @@ import Foundation
 struct Movie: Codable, Hashable {
     let title: String
     let id: Int
-    var releaseDate: String?
-    var popularity: Double?
-    var overview: String?
+    let releaseDate: String
+    let overview: String
     let posterPath: String
-    let backdropPath: String
 }

@@ -15,7 +15,5 @@ struct Movies: Codable, Hashable {
 struct Results: Codable, Hashable {
     let title: String
     let id: Int
-//    var overview: String?
-//    var posterPath: String?
     let backdropPath: String
 }

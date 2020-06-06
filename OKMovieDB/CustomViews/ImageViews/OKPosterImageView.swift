@@ -13,6 +13,7 @@ class OKPosterImageView: UIImageView {
     let cache               = NetworkManager.shared.cache
     let placeholderImage    = SFSymbols.camera
     
+    
     override init(frame: CGRect) {
         super.init(frame: frame)
         configure()
@@ -22,13 +23,14 @@ class OKPosterImageView: UIImageView {
         fatalError("init(coder:) has not been implemented")
     }
     
+    
     private func configure() {
         translatesAutoresizingMaskIntoConstraints = false
         
         layer.cornerRadius  = 10
         clipsToBounds       = true
         image               = placeholderImage
-        contentMode         = .scaleAspectFill
+        contentMode         = .scaleAspectFit
     }
     
 }

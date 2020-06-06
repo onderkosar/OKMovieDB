@@ -20,6 +20,7 @@ class CategoriesVC: UIViewController {
     var allViews: [OKCategoryView]  = []
     var allString: [String]         = []
     
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .systemBackground

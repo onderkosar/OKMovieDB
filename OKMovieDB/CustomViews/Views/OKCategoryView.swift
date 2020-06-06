@@ -13,6 +13,7 @@ class OKCategoryView: UIView {
     let categoryImageView   = OKPosterImageView(frame: .zero)
     let categoryTitleLabel  = OKTitleLabel(textAlignment: .center, fontSize: 15)
     
+    
     override init(frame: CGRect) {
         super.init(frame: frame)
         configure()

@@ -8,14 +8,13 @@
 
 import UIKit
 
-
-
 class MovieInfoVC: UIViewController {
     
-    let scrollView          = UIScrollView()
+    let scrollView = UIScrollView()
     let headerView = UIView()
     
     var movieId : Int!
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -23,6 +22,7 @@ class MovieInfoVC: UIViewController {
         getMovieInfo()
         configureScrollView()
     }
+    
     
     @objc func dismissVC() {
         dismiss(animated: true)
@@ -49,7 +49,7 @@ class MovieInfoVC: UIViewController {
     }
     
     func configureViewController() {
-        view.backgroundColor                = .systemBlue
+        view.backgroundColor                = .systemBackground
         
         let doneButton                      = UIBarButtonItem(barButtonSystemItem: .done, target: self, action: #selector(dismissVC))
         let favButton                       = UIBarButtonItem(image: SFSymbols.starFilled, style: .done, target: self, action: #selector(addFavorites))

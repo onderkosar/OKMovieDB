@@ -14,6 +14,7 @@ class MovieCell: UICollectionViewCell {
     let moviePosterView         = OKCategoryView()
     let imageBaseUrl: String    = "https://image.tmdb.org/t/p/w500"
     
+    
     override init(frame: CGRect) {
         super.init(frame: frame)
         configure()
