@@ -8,7 +8,7 @@
 
 import UIKit
 
-class MovieInfoVC: UIViewController {
+class MovieInfoVC: OKDataLoadingVC {
     
     let scrollView = UIScrollView()
     let headerView = UIView()
@@ -18,8 +18,8 @@ class MovieInfoVC: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        configureViewController()
         getMovieInfo()
+        configureViewController()
         configureScrollView()
     }
     
@@ -29,7 +29,28 @@ class MovieInfoVC: UIViewController {
     }
     
     @objc func addFavorites() {
-        print("Function is not ready yet!")
+        showLoadingView()
+        
+        NetworkManager.shared.getMovieInfo(for: movieId) { [weak self] result in
+            guard let self = self else { return }
+            self.dismissLoadingView()
+            
+            switch result {
+            case .success(let movie):
+                let favorite = Results(title: movie.title, id: movie.id, backdropPath: movie.posterPath)
+                PersistenceManager.updateWith(favorite: favorite, actionType: .add) { [weak self] error in
+                    guard let self = self else { return }
+                    guard let error = error else {
+                        self.presentOKAlertOnMainThread(title: "Success!", message: "You have successfully favorited this movie.", buttonTitle: "Ok")
+                        return
+                    }
+                    self.presentOKAlertOnMainThread(title: "Something went wrong", message: error.rawValue, buttonTitle: "Ok")
+                }
+            case .failure(let error):
+                self.presentOKAlertOnMainThread(title: "Something went wrong", message: error.rawValue, buttonTitle: "Ok")
+            }
+            
+        }
     }
     
     func getMovieInfo() {

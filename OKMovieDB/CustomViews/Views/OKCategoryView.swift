@@ -30,7 +30,7 @@ class OKCategoryView: UIView {
         
         addSubviews(categoryImageView, categoryTitleLabel)
 
-        categoryImageView.tintColor         = .label
+        categoryImageView.tintColor         = .secondaryLabel
         categoryImageView.alpha             = 0.8
         categoryImageView.layer.borderWidth = 2
         

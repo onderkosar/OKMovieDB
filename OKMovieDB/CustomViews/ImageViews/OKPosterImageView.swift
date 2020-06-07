@@ -31,6 +31,7 @@ class OKPosterImageView: UIImageView {
         clipsToBounds       = true
         image               = placeholderImage
         contentMode         = .scaleAspectFit
+        tintColor           = .secondaryLabel
     }
     
 }
