@@ -28,12 +28,7 @@ class FavoriteCell: UITableViewCell {
     
     
     func set(favorite: Results) {
-        
-        NetworkManager.shared.downloadImage(from: imageBaseUrl + favorite.backdropPath) { [weak self] image in
-            guard let self = self else { return }
-            DispatchQueue.main.async { self.moviePosterImageView.image = image }
-        }
-        
+        moviePosterImageView.downloadImage(fromURL: imageBaseUrl + favorite.backdropPath)
         movieTitleLabel.text = favorite.title
     }
     

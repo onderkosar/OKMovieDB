@@ -40,10 +40,4 @@ class OKDataLoadingVC: UIViewController {
             self.containerView = nil
         }
     }
-    
-    func showEmptyStateView(with messsage: String, in view: UIView) {
-        let emptyStateView      = OKEmptyStateView(message: messsage)
-        emptyStateView.frame    = view.bounds
-        view.addSubview(emptyStateView)
-    }
 }

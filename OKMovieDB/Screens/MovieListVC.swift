@@ -23,6 +23,7 @@ class MovieListVC: OKDataLoadingVC {
     var page                        = 1
     var hasMoreMovies               = true
     var isSearching                 = false
+    var isLoadingMoreMovies         = false
     
     
     override func viewDidLoad() {
@@ -46,7 +47,6 @@ class MovieListVC: OKDataLoadingVC {
     
     func configureSearchController() {
         let searchController = UISearchController()
-        searchController.searchBar.delegate         = self
         searchController.searchResultsUpdater       = self
         searchController.searchBar.placeholder      = "Search for a movie"
         navigationItem.searchController             = searchController
@@ -55,6 +55,7 @@ class MovieListVC: OKDataLoadingVC {
     
     func getMovies(for genreId: Int, page: Int) {
         showLoadingView()
+        isLoadingMoreMovies = true
         
         NetworkManager.shared.getMovies(for: genreId, page: page) { [weak self] result in
             guard let self = self else { return }
@@ -62,22 +63,26 @@ class MovieListVC: OKDataLoadingVC {
             
             switch result {
             case.success(let movies):
-                if movies.count < 20 { self.hasMoreMovies = false }
-                self.movies.append(contentsOf: movies)
-                
-                if self.movies.isEmpty {
-                    let message = "There is no movie left in this category, that was the last page."
-                    DispatchQueue.main.async { self.showEmptyStateView(with: message, in: self.view) }
-                    return
-                }
-                
-                self.updateData(on: self.movies)
+                self.updateUI(with: movies)
             case.failure(let error):
                 self.presentOKAlertOnMainThread(title: "Something went wrong.", message: error.rawValue, buttonTitle: "Ok")
             }
+            self.isLoadingMoreMovies = false
         }
     }
     
+    func updateUI(with movies: [Results]) {
+        if movies.count < 20 { self.hasMoreMovies = false }
+        self.movies.append(contentsOf: movies)
+        
+        if self.movies.isEmpty {
+            let message = "There is no movie left in this category, that was the last page."
+            DispatchQueue.main.async { self.presentOKAlertOnMainThread(title: "No movie!", message: message, buttonTitle: "Ok") }
+            return
+        }
+        
+        self.updateData(on: self.movies)
+    }
     
     func configureDataSource() {
         dataSource = UICollectionViewDiffableDataSource<Section, Results>(collectionView: collectionView, cellProvider: { (collectionView, indexPath, movie) -> UICollectionViewCell? in
@@ -104,13 +109,13 @@ extension MovieListVC: UICollectionViewDelegate {
         let height          = scrollView.frame.size.height
         
         if offsetY > contentHeight - height {
-            guard hasMoreMovies else { return }
+            guard hasMoreMovies, !isLoadingMoreMovies else { return }
             page += 1
             getMovies(for: genreId, page: page)
         }
     }
     
-    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+    func collectionView(_  collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         let activeArray     = isSearching ? filteredMovies : movies
         let movies          = activeArray[indexPath.item]
         
@@ -122,17 +127,11 @@ extension MovieListVC: UICollectionViewDelegate {
     }
 }
 
-extension MovieListVC: UISearchResultsUpdating, UISearchBarDelegate {
-    
+extension MovieListVC: UISearchResultsUpdating {
     func updateSearchResults(for searchController: UISearchController) {
         guard let filter = searchController.searchBar.text, !filter.isEmpty else { return }
         isSearching = true
         filteredMovies = movies.filter { $0.title.lowercased().contains(filter.lowercased()) }
         updateData(on: filteredMovies)
-    }
-    
-    func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
-        isSearching = false
-        updateData(on: movies)
     }
 }

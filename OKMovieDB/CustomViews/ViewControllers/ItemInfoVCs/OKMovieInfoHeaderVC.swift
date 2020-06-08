@@ -32,30 +32,20 @@ class OKMovieInfoHeaderVC: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        addUIElements()
+        view.addSubviews(posterImageView, movieTitleLabel, dateImageView, releaseDateLabel, overviewLabel)
         layoutUI()
         configureUIElements()
     }
     
     
     func configureUIElements() {
+        posterImageView.downloadImage(fromURL: imageBaseUrl + movie.posterPath)
         
-        NetworkManager.shared.downloadImage(from: imageBaseUrl + movie.posterPath) { [weak self] image in
-            guard let self = self else { return }
-            DispatchQueue.main.async { self.posterImageView.image = image }
-        }
-        
-        movieTitleLabel.text    = movie.title
-        releaseDateLabel.text   = movie.releaseDate.convertToDisplayFormat()
-        
-        dateImageView.image     = SFSymbols.calendar
-        dateImageView.tintColor = .secondaryLabel
-        
-        overviewLabel.text      = movie.overview
-    }
-    
-    func addUIElements() {
-        view.addSubviews(posterImageView, movieTitleLabel, dateImageView, releaseDateLabel, overviewLabel)
+        movieTitleLabel.text        = movie.title
+        releaseDateLabel.text       = movie.releaseDate.convertToDisplayFormat()
+        dateImageView.image         = SFSymbols.calendar
+        dateImageView.tintColor     = .secondaryLabel
+        overviewLabel.text          = movie.overview
     }
     
     func layoutUI() {

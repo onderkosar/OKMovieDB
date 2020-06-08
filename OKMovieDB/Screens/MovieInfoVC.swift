@@ -37,19 +37,22 @@ class MovieInfoVC: OKDataLoadingVC {
             
             switch result {
             case .success(let movie):
-                let favorite = Results(title: movie.title, id: movie.id, backdropPath: movie.posterPath)
-                PersistenceManager.updateWith(favorite: favorite, actionType: .add) { [weak self] error in
-                    guard let self = self else { return }
-                    guard let error = error else {
-                        self.presentOKAlertOnMainThread(title: "Success!", message: "You have successfully favorited this movie.", buttonTitle: "Ok")
-                        return
-                    }
-                    self.presentOKAlertOnMainThread(title: "Something went wrong", message: error.rawValue, buttonTitle: "Ok")
-                }
+                self.addMovieToFavorites(movie: movie)
             case .failure(let error):
                 self.presentOKAlertOnMainThread(title: "Something went wrong", message: error.rawValue, buttonTitle: "Ok")
             }
-            
+        }
+    }
+    
+    func addMovieToFavorites(movie: Movie) {
+        let favorite = Results(title: movie.title, id: movie.id, backdropPath: movie.posterPath)
+        PersistenceManager.updateWith(favorite: favorite, actionType: .add) { [weak self] error in
+            guard let self = self else { return }
+            guard let error = error else {
+                self.presentOKAlertOnMainThread(title: "Success!", message: "You have successfully favorited this movie.", buttonTitle: "Ok")
+                return
+            }
+            self.presentOKAlertOnMainThread(title: "Something went wrong", message: error.rawValue, buttonTitle: "Ok")
         }
     }
     

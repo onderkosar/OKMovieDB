@@ -27,12 +27,7 @@ class MovieCell: UICollectionViewCell {
 
     
     func set(movies: Results) {
-        
-        NetworkManager.shared.downloadImage(from: imageBaseUrl + movies.backdropPath) { [weak self] image in
-            guard let self = self else { return }
-            DispatchQueue.main.async { self.moviePosterView.categoryImageView.image = image }
-        }
-        
+        moviePosterView.categoryImageView.downloadImage(fromURL: imageBaseUrl + movies.backdropPath)
         moviePosterView.categoryTitleLabel.text = movies.title
     }
     
