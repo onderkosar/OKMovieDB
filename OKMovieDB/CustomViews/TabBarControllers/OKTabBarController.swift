@@ -14,7 +14,7 @@ class OKTabBarController: UITabBarController {
     override func viewDidLoad() {
         super.viewDidLoad()
         UITabBar.appearance().tintColor = .systemGray
-        viewControllers = [createCategoriesNC(), createFavoritesNC()]
+        viewControllers                 = [createCategoriesNC(), createFavoritesNC()]
     }
     
     

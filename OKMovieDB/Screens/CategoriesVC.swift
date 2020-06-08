@@ -32,7 +32,7 @@ class CategoriesVC: UIViewController {
     @objc func horrorTapping(recognizer: UITapGestureRecognizer) {
         let movieListVC     = MovieListVC()
         movieListVC.genreId = Genres.horror
-        movieListVC.title   = "HORROR"
+        movieListVC.title   = "Horror List"
         
         navigationController?.pushViewController(movieListVC, animated: true)
     }
@@ -40,7 +40,7 @@ class CategoriesVC: UIViewController {
     @objc func comedyTapping(recognizer: UITapGestureRecognizer) {
         let movieListVC     = MovieListVC()
         movieListVC.genreId = Genres.comedy
-        movieListVC.title   = "COMEDY"
+        movieListVC.title   = "Comedy List"
         
         navigationController?.pushViewController(movieListVC, animated: true)
     }
@@ -48,7 +48,7 @@ class CategoriesVC: UIViewController {
     @objc func romanceTapping(recognizer: UITapGestureRecognizer) {
         let movieListVC     = MovieListVC()
         movieListVC.genreId = Genres.romance
-        movieListVC.title   = "ROMANCE"
+        movieListVC.title   = "Romance List"
         
         navigationController?.pushViewController(movieListVC, animated: true)
     }
@@ -56,7 +56,7 @@ class CategoriesVC: UIViewController {
     @objc func actionTapping(recognizer: UITapGestureRecognizer) {
         let movieListVC     = MovieListVC()
         movieListVC.genreId = Genres.action
-        movieListVC.title   = "ACTION"
+        movieListVC.title   = "Action List"
         
         navigationController?.pushViewController(movieListVC, animated: true)
     }
@@ -64,7 +64,7 @@ class CategoriesVC: UIViewController {
     @objc func historyTapping(recognizer: UITapGestureRecognizer) {
         let movieListVC     = MovieListVC()
         movieListVC.genreId = Genres.history
-        movieListVC.title   = "HISTORY"
+        movieListVC.title   = "History List"
         
         navigationController?.pushViewController(movieListVC, animated: true)
     }
@@ -72,7 +72,7 @@ class CategoriesVC: UIViewController {
     @objc func animationTapping(recognizer: UITapGestureRecognizer) {
         let movieListVC     = MovieListVC()
         movieListVC.genreId = Genres.animation
-        movieListVC.title   = "ANIMATION"
+        movieListVC.title   = "Animation List"
         
         navigationController?.pushViewController(movieListVC, animated: true)
     }
@@ -80,12 +80,12 @@ class CategoriesVC: UIViewController {
     func configureCategoryView() {
         allViews = [horrorView, comedyView, romanceView, actionView, historyView, animationView]
         
-        horrorView.set(image: SFSymbols.star!, text: "Horror")
-        comedyView.set(image: SFSymbols.star!, text: "Comedy")
-        romanceView.set(image: SFSymbols.star!, text: "Romance")
-        actionView.set(image: SFSymbols.star!, text: "Action")
-        historyView.set(image: SFSymbols.star!, text: "History")
-        animationView.set(image: SFSymbols.star!, text: "Animation")
+        horrorView.set(image: GenreImages.horror, text: "Horror")
+        comedyView.set(image: GenreImages.comedy, text: "Comedy")
+        romanceView.set(image: GenreImages.romance, text: "Romance")
+        actionView.set(image: GenreImages.action, text: "Action")
+        historyView.set(image: GenreImages.history, text: "History")
+        animationView.set(image: GenreImages.animation, text: "Animation")
         
         for item in allViews {
             view.addSubview(item)
