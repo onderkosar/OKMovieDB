@@ -39,7 +39,12 @@ class OKMovieInfoHeaderVC: UIViewController {
     
     
     func configureUIElements() {
-        posterImageView.downloadImage(fromURL: imageBaseUrl + movie.posterPath)
+        
+        NetworkManager.shared.downloadImage(from: imageBaseUrl + movie.posterPath) { [weak self] image in
+            guard let self = self else { return }
+            DispatchQueue.main.async { self.posterImageView.image = image }
+        }
+        
         movieTitleLabel.text    = movie.title
         releaseDateLabel.text   = movie.releaseDate.convertToDisplayFormat()
         

@@ -100,8 +100,6 @@ class NetworkManager {
         task.resume()
     }
     
-    
-    #warning("fonksiyona göz at, şu anda kullanılmıyor.")
     func downloadImage(from urlString: String, completed: @escaping(UIImage?) -> Void) {
         // Önceden indirilmiş fotoğrafları scroll yaptığımızda yeniden yüklememek için cache içerisinde tutmalıyız...
         let cacheKey = NSString(string: urlString)
@@ -128,7 +126,7 @@ class NetworkManager {
                 let image = UIImage(data: data) else {
                     completed(nil)
                     return
-            }
+                }
             
             // Yüklenen fotoğrafı yeniden yüklememek için cache içerisine alıyoruz
             self.cache.setObject(image, forKey: cacheKey)

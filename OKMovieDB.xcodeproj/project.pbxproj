@@ -15,7 +15,6 @@
 		950E50FA248A9D2800BF720E /* OKBodyLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 950E50F9248A9D2800BF720E /* OKBodyLabel.swift */; };
 		950E50FD248A9D5800BF720E /* OKButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 950E50FC248A9D5800BF720E /* OKButton.swift */; };
 		9512608E24840C00006AFFB0 /* MovieCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9512608D24840C00006AFFB0 /* MovieCell.swift */; };
-		9512609024841161006AFFB0 /* UIImageView+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9512608F24841161006AFFB0 /* UIImageView+Ext.swift */; };
 		951C56252487FBF20024ACE5 /* OKEmptyStateView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 951C56242487FBF20024ACE5 /* OKEmptyStateView.swift */; };
 		951F7D44248BB9F900428DB6 /* Movie.swift in Sources */ = {isa = PBXBuildFile; fileRef = 951F7D43248BB9F900428DB6 /* Movie.swift */; };
 		951F7D46248BC01F00428DB6 /* OKMovieInfoHeaderVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 951F7D45248BC01F00428DB6 /* OKMovieInfoHeaderVC.swift */; };
@@ -53,7 +52,6 @@
 		950E50F9248A9D2800BF720E /* OKBodyLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OKBodyLabel.swift; sourceTree = "<group>"; };
 		950E50FC248A9D5800BF720E /* OKButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OKButton.swift; sourceTree = "<group>"; };
 		9512608D24840C00006AFFB0 /* MovieCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MovieCell.swift; sourceTree = "<group>"; };
-		9512608F24841161006AFFB0 /* UIImageView+Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIImageView+Ext.swift"; sourceTree = "<group>"; };
 		951C56242487FBF20024ACE5 /* OKEmptyStateView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OKEmptyStateView.swift; sourceTree = "<group>"; };
 		951F7D43248BB9F900428DB6 /* Movie.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Movie.swift; sourceTree = "<group>"; };
 		951F7D45248BC01F00428DB6 /* OKMovieInfoHeaderVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OKMovieInfoHeaderVC.swift; sourceTree = "<group>"; };
@@ -249,7 +247,6 @@
 			isa = PBXGroup;
 			children = (
 				95DEE7722483D2EF00EFA5AB /* UIView+Ext.swift */,
-				9512608F24841161006AFFB0 /* UIImageView+Ext.swift */,
 				950E50F3248A9C3600BF720E /* UIViewController+Ext.swift */,
 				95CC751C248C02B20073FED1 /* Date+Ext.swift */,
 				95CC751E248C037A0073FED1 /* String+Ext.swift */,
@@ -357,7 +354,6 @@
 				95DEE7482483C99300EFA5AB /* AppDelegate.swift in Sources */,
 				952FAC13248C1C600036836A /* PersistenceManager.swift in Sources */,
 				95DEE74A2483C99300EFA5AB /* SceneDelegate.swift in Sources */,
-				9512609024841161006AFFB0 /* UIImageView+Ext.swift in Sources */,
 				950E50F6248A9CA200BF720E /* OKAlertVC.swift in Sources */,
 				950E50F4248A9C3600BF720E /* UIViewController+Ext.swift in Sources */,
 				950E50F2248A945800BF720E /* Movies.swift in Sources */,
