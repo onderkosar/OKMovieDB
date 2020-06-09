@@ -14,7 +14,7 @@ class OKTabBarController: UITabBarController {
     override func viewDidLoad() {
         super.viewDidLoad()
         UITabBar.appearance().tintColor = .systemGray
-        viewControllers                 = [createCategoriesNC(), createFavoritesNC()]
+        viewControllers                 = [createCategoriesNC(), createSearchNC(), createFavoritesNC()]
     }
     
     
@@ -31,8 +31,17 @@ class OKTabBarController: UITabBarController {
         let favoritesVC             = FavoritesVC()
         
         favoritesVC.title           = "Favorites"
-        favoritesVC.tabBarItem      = UITabBarItem(title: "Favorites", image: SFSymbols.star, tag: 1)
+        favoritesVC.tabBarItem      = UITabBarItem(title: "Favorites", image: SFSymbols.star, tag: 2)
         
         return UINavigationController(rootViewController: favoritesVC)
+    }
+    
+    func createSearchNC() -> UINavigationController {
+        let searchVC                = SearchVC()
+        
+        searchVC.title              = "Search"
+        searchVC.tabBarItem         = UITabBarItem(title: "Search", image: SFSymbols.search, tag: 1)
+        
+        return UINavigationController(rootViewController: searchVC)
     }
 }

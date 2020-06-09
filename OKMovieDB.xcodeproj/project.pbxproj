@@ -21,6 +21,8 @@
 		952FAC13248C1C600036836A /* PersistenceManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 952FAC12248C1C600036836A /* PersistenceManager.swift */; };
 		9542B93B248AC91800650A91 /* OKPosterImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9542B93A248AC91800650A91 /* OKPosterImageView.swift */; };
 		954F0B2624855F0300331853 /* OKDataLoadingVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 954F0B2524855F0300331853 /* OKDataLoadingVC.swift */; };
+		955CEF38248F7A42008D2492 /* OKTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 955CEF37248F7A42008D2492 /* OKTextField.swift */; };
+		955CEF3A248F7AE1008D2492 /* SearchVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 955CEF39248F7AE1008D2492 /* SearchVC.swift */; };
 		958B9F54248D598C00AEB896 /* FavoriteCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 958B9F53248D598C00AEB896 /* FavoriteCell.swift */; };
 		95C6A0D4248EB80A0064FFFE /* UITableView+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95C6A0D3248EB80A0064FFFE /* UITableView+Ext.swift */; };
 		95CC751D248C02B20073FED1 /* Date+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95CC751C248C02B20073FED1 /* Date+Ext.swift */; };
@@ -58,6 +60,8 @@
 		952FAC12248C1C600036836A /* PersistenceManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PersistenceManager.swift; sourceTree = "<group>"; };
 		9542B93A248AC91800650A91 /* OKPosterImageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OKPosterImageView.swift; sourceTree = "<group>"; };
 		954F0B2524855F0300331853 /* OKDataLoadingVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OKDataLoadingVC.swift; sourceTree = "<group>"; };
+		955CEF37248F7A42008D2492 /* OKTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OKTextField.swift; sourceTree = "<group>"; };
+		955CEF39248F7AE1008D2492 /* SearchVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchVC.swift; sourceTree = "<group>"; };
 		958B9F53248D598C00AEB896 /* FavoriteCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavoriteCell.swift; sourceTree = "<group>"; };
 		95C6A0D3248EB80A0064FFFE /* UITableView+Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UITableView+Ext.swift"; sourceTree = "<group>"; };
 		95CC751C248C02B20073FED1 /* Date+Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Date+Ext.swift"; sourceTree = "<group>"; };
@@ -127,6 +131,14 @@
 			path = ViewControllers;
 			sourceTree = "<group>";
 		};
+		955CEF36248F7A21008D2492 /* TextFields */ = {
+			isa = PBXGroup;
+			children = (
+				955CEF37248F7A42008D2492 /* OKTextField.swift */,
+			);
+			path = TextFields;
+			sourceTree = "<group>";
+		};
 		95C6A0D1248E9DC30064FFFE /* ItemInfoVCs */ = {
 			isa = PBXGroup;
 			children = (
@@ -185,6 +197,7 @@
 				95DEE7622483CD7400EFA5AB /* FavoritesVC.swift */,
 				95DEE7762483DDF500EFA5AB /* MovieListVC.swift */,
 				950E50EF248A84FC00BF720E /* MovieInfoVC.swift */,
+				955CEF39248F7AE1008D2492 /* SearchVC.swift */,
 			);
 			path = Screens;
 			sourceTree = "<group>";
@@ -192,6 +205,7 @@
 		95DEE75D2483CC2C00EFA5AB /* CustomViews */ = {
 			isa = PBXGroup;
 			children = (
+				955CEF36248F7A21008D2492 /* TextFields */,
 				950E50FB248A9D4800BF720E /* Buttons */,
 				95DEE76C2483D12800EFA5AB /* Labels */,
 				9512608C24840BE6006AFFB0 /* Cells */,
@@ -349,6 +363,7 @@
 				95DEE7752483DA2D00EFA5AB /* UIHelper.swift in Sources */,
 				950E50F8248A9CF800BF720E /* OKAlertContainerView.swift in Sources */,
 				95CC751F248C037A0073FED1 /* String+Ext.swift in Sources */,
+				955CEF38248F7A42008D2492 /* OKTextField.swift in Sources */,
 				951F7D48248BC1D000428DB6 /* OKSecondaryTitleLabel.swift in Sources */,
 				95CC751D248C02B20073FED1 /* Date+Ext.swift in Sources */,
 				9542B93B248AC91800650A91 /* OKPosterImageView.swift in Sources */,
@@ -372,6 +387,7 @@
 				950E50FA248A9D2800BF720E /* OKBodyLabel.swift in Sources */,
 				95DEE7652483CD8600EFA5AB /* CategoriesVC.swift in Sources */,
 				95DEE7682483CDDF00EFA5AB /* Constants.swift in Sources */,
+				955CEF3A248F7AE1008D2492 /* SearchVC.swift in Sources */,
 				95DEE7702483D24100EFA5AB /* OKCategoryView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

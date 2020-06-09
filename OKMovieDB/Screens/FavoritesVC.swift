@@ -28,7 +28,6 @@ class FavoritesVC: OKDataLoadingVC {
     
     
     func configureViewController() {
-        navigationController?.navigationBar.prefersLargeTitles = true
         view.backgroundColor    = .systemBackground
         title                   = "Favorites"
     }

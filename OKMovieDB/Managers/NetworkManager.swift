@@ -137,4 +137,42 @@ class NetworkManager {
         
         task.resume()
     }
+    
+    func searchMovie(for query: String, page:Int, completed: @escaping (Result<[Results], OKError>) -> Void) {
+        let endpoint = baseURL + "search/movie?api_key=\(apiKey)&language=en-US&query=\(query)&page=1&include_adult=false"
+        
+        guard let url = URL(string: endpoint) else {
+            completed(.failure(.invalidURL))
+            return
+        }
+        
+        let task = URLSession.shared.dataTask(with: url) { data, response, error in
+            if let _ = error {
+                completed(.failure(.unableToComplete))
+                return
+            }
+            
+            guard let response = response as? HTTPURLResponse, response.statusCode == 200 else {
+                completed(.failure(.invalidResponse))
+                return
+            }
+            
+            guard let data = data else {
+                completed(.failure(.invalidData))
+                return
+            }
+            
+            do {
+                let decoder = JSONDecoder()
+                decoder.keyDecodingStrategy = .convertFromSnakeCase
+                let movies = try decoder.decode(Movies.self, from: data)
+                self.movies = movies.results
+                completed(.success(self.movies))
+            } catch {
+                completed(.failure(.invalidData))
+            }
+        }
+        
+        task.resume()
+    }
 }
