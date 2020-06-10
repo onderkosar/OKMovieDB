@@ -33,7 +33,12 @@ class SearchVC: UIViewController {
     }
     
     @objc func pushMovieListVC() {
-        print("Pushed")
+        let movieListVC                 = MovieListVC()
+        movieListVC.isPushedBySearchVC  = true
+        movieListVC.query               = searchTextField.text!.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed)
+        movieListVC.page                = 1
+        
+        navigationController?.pushViewController(movieListVC, animated: true)
     }
     
     func configureSearchTextField() {

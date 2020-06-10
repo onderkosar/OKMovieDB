@@ -15,5 +15,5 @@ struct Movies: Codable, Hashable {
 struct Results: Codable, Hashable {
     let title: String
     let id: Int
-    let backdropPath: String
+    let backdropPath: String?
 }

@@ -16,6 +16,7 @@ class MovieListVC: OKDataLoadingVC {
     var collectionView: UICollectionView!
 
     var genreId: Int!
+    var query: String!
     
     var movies: [Results]           = []
     var filteredMovies: [Results]   = []
@@ -25,6 +26,7 @@ class MovieListVC: OKDataLoadingVC {
     var isSearching                 = false
     var isLoadingMoreMovies         = false
     
+    var isPushedBySearchVC          = false
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -32,8 +34,7 @@ class MovieListVC: OKDataLoadingVC {
         configureSearchController()
         configureCollectionView()
         configureDataSource()
-        getMovies(for: genreId, page: page)
-        
+        makeNetworkCall()
     }
     
     
@@ -46,6 +47,8 @@ class MovieListVC: OKDataLoadingVC {
     }
     
     func configureSearchController() {
+        if isPushedBySearchVC { return }
+        
         let searchController = UISearchController()
         searchController.searchResultsUpdater       = self
         searchController.searchBar.placeholder      = "Search for a movie"
@@ -71,17 +74,42 @@ class MovieListVC: OKDataLoadingVC {
         }
     }
     
+    func searchMovies(for query: String, page: Int) {
+        showLoadingView()
+        isLoadingMoreMovies = true
+        NetworkManager.shared.searchMovie(for: query, page: page) { [weak self] result in
+            guard let self = self else { return }
+            self.dismissLoadingView()
+            
+            switch result {
+            case.success(let movies):
+                self.updateUI(with: movies)
+            case.failure(let error):
+                self.presentOKAlertOnMainThread(title: "Something went wrong.", message: error.rawValue, buttonTitle: "Ok")
+            }
+            self.isLoadingMoreMovies = false
+        }
+    }
+    
     func updateUI(with movies: [Results]) {
         if movies.count < 20 { self.hasMoreMovies = false }
         self.movies.append(contentsOf: movies)
         
         if self.movies.isEmpty {
-            let message = "There is no movie left in this category, that was the last page."
+            let message = "There is no movie in this search."
             DispatchQueue.main.async { self.presentOKAlertOnMainThread(title: "No movie!", message: message, buttonTitle: "Ok") }
             return
         }
         
         self.updateData(on: self.movies)
+    }
+    
+    func makeNetworkCall() {
+        if isPushedBySearchVC {
+            searchMovies(for: query, page: page)
+        } else {
+            getMovies(for: genreId, page: page)
+        }
     }
     
     func configureDataSource() {
@@ -111,7 +139,9 @@ extension MovieListVC: UICollectionViewDelegate {
         if offsetY > contentHeight - height {
             guard hasMoreMovies, !isLoadingMoreMovies else { return }
             page += 1
-            getMovies(for: genreId, page: page)
+            
+            #warning("With search call, we get error while scrolling. Probably a diffable data source problem.")
+            makeNetworkCall()
         }
     }
     

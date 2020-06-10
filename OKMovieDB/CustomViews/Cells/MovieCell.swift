@@ -27,8 +27,12 @@ class MovieCell: UICollectionViewCell {
 
     
     func set(movies: Results) {
-        moviePosterView.categoryImageView.downloadImage(fromURL: imageBaseUrl + movies.backdropPath)
         moviePosterView.categoryTitleLabel.text = movies.title
+        
+        guard let image = movies.backdropPath else {
+            return
+        }
+        moviePosterView.categoryImageView.downloadImage(fromURL: imageBaseUrl + image)
     }
     
     private func configure() {

@@ -14,4 +14,6 @@ struct Movie: Codable, Hashable {
     let releaseDate: String
     let overview: String
     let posterPath: String
+    let voteAverage: Double
+    let voteCount: Int
 }

@@ -16,6 +16,8 @@ class OKMovieInfoHeaderVC: UIViewController {
     let movieTitleLabel     = OKTitleLabel(textAlignment: .left, fontSize: 30)
     let dateImageView       = UIImageView()
     let releaseDateLabel    = OKSecondaryTitleLabel(fontSize: 20)
+    let voteStarImageView   = UIImageView()
+    let voteLabel           = OKSecondaryTitleLabel(fontSize: 15)
     let overviewLabel       = OKBodyLabel(textAlignment: .justified)
     
     var movie: Movie!
@@ -32,7 +34,7 @@ class OKMovieInfoHeaderVC: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        view.addSubviews(posterImageView, movieTitleLabel, dateImageView, releaseDateLabel, overviewLabel)
+        view.addSubviews(posterImageView, movieTitleLabel, dateImageView, releaseDateLabel, voteStarImageView, voteLabel, overviewLabel)
         layoutUI()
         configureUIElements()
     }
@@ -46,6 +48,9 @@ class OKMovieInfoHeaderVC: UIViewController {
         dateImageView.image         = SFSymbols.calendar
         dateImageView.tintColor     = .secondaryLabel
         overviewLabel.text          = movie.overview
+        voteStarImageView.image     = SFSymbols.starFilled
+        voteStarImageView.tintColor = .systemYellow
+        voteLabel.text = " \(movie.voteAverage)/10 (in \(movie.voteCount) votes)"
     }
     
     func layoutUI() {
@@ -78,7 +83,17 @@ class OKMovieInfoHeaderVC: UIViewController {
             releaseDateLabel.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -padding),
             releaseDateLabel.heightAnchor.constraint(equalToConstant: 25),
             
-            overviewLabel.topAnchor.constraint(equalTo: releaseDateLabel.bottomAnchor, constant: padding),
+            voteStarImageView.topAnchor.constraint(equalTo: releaseDateLabel.bottomAnchor, constant: padding/2),
+            voteStarImageView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: padding),
+            voteStarImageView.widthAnchor.constraint(equalToConstant: 15),
+            voteStarImageView.heightAnchor.constraint(equalToConstant: 15),
+            
+            voteLabel.topAnchor.constraint(equalTo: releaseDateLabel.bottomAnchor, constant: padding/2),
+            voteLabel.leadingAnchor.constraint(equalTo: voteStarImageView.trailingAnchor),
+            voteLabel.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -padding),
+            voteLabel.heightAnchor.constraint(equalToConstant: 15),
+            
+            overviewLabel.topAnchor.constraint(equalTo: voteLabel.bottomAnchor, constant: padding),
             overviewLabel.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: padding),
             overviewLabel.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -padding)
         ])
