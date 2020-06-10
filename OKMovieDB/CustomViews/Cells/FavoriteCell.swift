@@ -11,7 +11,6 @@ import UIKit
 class FavoriteCell: UITableViewCell {
     
     static let reuseID          = "FavoriteCell"
-    let imageBaseUrl            = "https://image.tmdb.org/t/p/w500"
     
     let moviePosterImageView    = OKPosterImageView(frame: .zero)
     let movieTitleLabel         = OKTitleLabel(textAlignment: .left, fontSize: 20)
@@ -29,10 +28,7 @@ class FavoriteCell: UITableViewCell {
     
     func set(favorite: Results) {
         movieTitleLabel.text = favorite.title
-        guard let image = favorite.backdropPath else {
-            return
-        }
-        moviePosterImageView.downloadImage(fromURL: imageBaseUrl + image)
+        moviePosterImageView.downloadImage(fromURL: favorite.backdropURL)
     }
     
     private func configure() {

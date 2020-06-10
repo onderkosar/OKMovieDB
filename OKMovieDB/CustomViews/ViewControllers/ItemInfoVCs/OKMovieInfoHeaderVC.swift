@@ -9,15 +9,13 @@
 import UIKit
 
 class OKMovieInfoHeaderVC: UIViewController {
-    
-    let imageBaseUrl        = "https://image.tmdb.org/t/p/w500"
 
     let posterImageView     = OKPosterImageView(frame: .zero)
     let movieTitleLabel     = OKTitleLabel(textAlignment: .left, fontSize: 30)
     let dateImageView       = UIImageView()
     let releaseDateLabel    = OKSecondaryTitleLabel(fontSize: 20)
-    let voteStarImageView   = UIImageView()
-    let voteLabel           = OKSecondaryTitleLabel(fontSize: 15)
+    let voteStarsLabel      = OKSecondaryTitleLabel(fontSize: 14)
+    let voteCountLabel      = OKSecondaryTitleLabel(fontSize: 14)
     let overviewLabel       = OKBodyLabel(textAlignment: .justified)
     
     var movie: Movie!
@@ -34,23 +32,29 @@ class OKMovieInfoHeaderVC: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        view.addSubviews(posterImageView, movieTitleLabel, dateImageView, releaseDateLabel, voteStarImageView, voteLabel, overviewLabel)
+        view.addSubviews(posterImageView, movieTitleLabel, dateImageView, releaseDateLabel, voteStarsLabel, voteCountLabel, overviewLabel)
         layoutUI()
         configureUIElements()
     }
     
     
     func configureUIElements() {
-        posterImageView.downloadImage(fromURL: imageBaseUrl + movie.posterPath)
+        posterImageView.downloadImage(fromURL: movie.posterURL)
         
         movieTitleLabel.text        = movie.title
-        releaseDateLabel.text       = movie.releaseDate.convertToDisplayFormat()
+        
         dateImageView.image         = SFSymbols.calendar
         dateImageView.tintColor     = .secondaryLabel
+        
+        releaseDateLabel.text       = movie.date
+        
+        voteStarsLabel.text         = movie.ratingStarsVoted
+        voteStarsLabel.tintColor    = .systemGray
+        voteStarsLabel.textColor    = .systemYellow
+
+        voteCountLabel.text         = movie.ratingStarsRemaining
+        
         overviewLabel.text          = movie.overview
-        voteStarImageView.image     = SFSymbols.starFilled
-        voteStarImageView.tintColor = .systemYellow
-        voteLabel.text = " \(movie.voteAverage)/10 (in \(movie.voteCount) votes)"
     }
     
     func layoutUI() {
@@ -60,7 +64,6 @@ class OKMovieInfoHeaderVC: UIViewController {
         let posterHeight: CGFloat       = view.bounds.width
         let posterWidth:CGFloat         = posterHeight*2/3
         let padding: CGFloat            = 20
-        let textImagePadding: CGFloat   = 12
         
         NSLayoutConstraint.activate([
             posterImageView.topAnchor.constraint(equalTo: view.topAnchor, constant: padding),
@@ -73,27 +76,26 @@ class OKMovieInfoHeaderVC: UIViewController {
             movieTitleLabel.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -padding),
             movieTitleLabel.heightAnchor.constraint(equalToConstant: 35),
             
-            dateImageView.topAnchor.constraint(equalTo: movieTitleLabel.bottomAnchor, constant: textImagePadding),
+            dateImageView.topAnchor.constraint(equalTo: movieTitleLabel.bottomAnchor, constant: padding/2),
             dateImageView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: padding),
             dateImageView.widthAnchor.constraint(equalToConstant: 20),
             dateImageView.heightAnchor.constraint(equalToConstant: 20),
             
             releaseDateLabel.centerYAnchor.constraint(equalTo: dateImageView.centerYAnchor),
-            releaseDateLabel.leadingAnchor.constraint(equalTo: dateImageView.trailingAnchor, constant: textImagePadding/2),
+            releaseDateLabel.leadingAnchor.constraint(equalTo: dateImageView.trailingAnchor, constant: padding/2),
             releaseDateLabel.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -padding),
             releaseDateLabel.heightAnchor.constraint(equalToConstant: 25),
             
-            voteStarImageView.topAnchor.constraint(equalTo: releaseDateLabel.bottomAnchor, constant: padding/2),
-            voteStarImageView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: padding),
-            voteStarImageView.widthAnchor.constraint(equalToConstant: 15),
-            voteStarImageView.heightAnchor.constraint(equalToConstant: 15),
+            voteStarsLabel.topAnchor.constraint(equalTo: releaseDateLabel.bottomAnchor, constant: padding),
+            voteStarsLabel.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: padding),
+            voteStarsLabel.heightAnchor.constraint(equalToConstant: 20),
             
-            voteLabel.topAnchor.constraint(equalTo: releaseDateLabel.bottomAnchor, constant: padding/2),
-            voteLabel.leadingAnchor.constraint(equalTo: voteStarImageView.trailingAnchor),
-            voteLabel.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -padding),
-            voteLabel.heightAnchor.constraint(equalToConstant: 15),
+            voteCountLabel.centerYAnchor.constraint(equalTo: voteStarsLabel.centerYAnchor),
+            voteCountLabel.leadingAnchor.constraint(equalTo: voteStarsLabel.trailingAnchor),
+            voteCountLabel.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -padding),
+            voteCountLabel.heightAnchor.constraint(equalToConstant: 15),
             
-            overviewLabel.topAnchor.constraint(equalTo: voteLabel.bottomAnchor, constant: padding),
+            overviewLabel.topAnchor.constraint(equalTo: voteCountLabel.bottomAnchor, constant: padding),
             overviewLabel.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: padding),
             overviewLabel.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -padding)
         ])

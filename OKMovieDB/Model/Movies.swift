@@ -16,4 +16,8 @@ struct Results: Codable, Hashable {
     let title: String
     let id: Int
     let backdropPath: String?
+    
+    var backdropURL: URL {
+        return URL(string: "https://image.tmdb.org/t/p/w500\(backdropPath ?? "")")!
+    }
 }

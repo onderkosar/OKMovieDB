@@ -12,7 +12,6 @@ class MovieCell: UICollectionViewCell {
     static let reuseID          = "MovieCell"
     
     let moviePosterView         = OKCategoryView()
-    let imageBaseUrl: String    = "https://image.tmdb.org/t/p/w500"
     
     
     override init(frame: CGRect) {
@@ -28,11 +27,7 @@ class MovieCell: UICollectionViewCell {
     
     func set(movies: Results) {
         moviePosterView.categoryTitleLabel.text = movies.title
-        
-        guard let image = movies.backdropPath else {
-            return
-        }
-        moviePosterView.categoryImageView.downloadImage(fromURL: imageBaseUrl + image)
+        moviePosterView.categoryImageView.downloadImage(fromURL: movies.backdropURL)
     }
     
     private func configure() {
