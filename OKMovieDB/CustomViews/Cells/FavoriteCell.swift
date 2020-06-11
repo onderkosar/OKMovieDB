@@ -9,7 +9,6 @@
 import UIKit
 
 class FavoriteCell: UITableViewCell {
-    
     static let reuseID          = "FavoriteCell"
     
     let moviePosterImageView    = OKPosterImageView(frame: .zero)
