@@ -26,15 +26,13 @@ class MovieListVC: OKDataLoadingVC {
     var isSearching                 = false
     var isLoadingMoreMovies         = false
     
-    var isPushedBySearchVC          = false
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .systemBackground
         configureSearchController()
         configureCollectionView()
         configureDataSource()
-        makeNetworkCall()
+        searchMovies(for: query, page: page)
     }
     
     
@@ -47,31 +45,11 @@ class MovieListVC: OKDataLoadingVC {
     }
     
     func configureSearchController() {
-        if isPushedBySearchVC { return }
-        
         let searchController = UISearchController()
         searchController.searchResultsUpdater       = self
         searchController.searchBar.placeholder      = "Search for a movie"
         navigationItem.searchController             = searchController
         navigationItem.hidesSearchBarWhenScrolling  = false
-    }
-    
-    func getMovies(for genreId: Int, page: Int) {
-        showLoadingView()
-        isLoadingMoreMovies = true
-        
-        NetworkManager.shared.getMovies(for: genreId, page: page) { [weak self] result in
-            guard let self = self else { return }
-            self.dismissLoadingView()
-            
-            switch result {
-            case.success(let movies):
-                self.updateUI(with: movies)
-            case.failure(let error):
-                self.presentOKAlertOnMainThread(title: "Something went wrong.", message: error.rawValue, buttonTitle: "Ok")
-            }
-            self.isLoadingMoreMovies = false
-        }
     }
     
     func searchMovies(for query: String, page: Int) {
@@ -104,14 +82,6 @@ class MovieListVC: OKDataLoadingVC {
         self.updateData(on: self.movies)
     }
     
-    func makeNetworkCall() {
-        if isPushedBySearchVC {
-            searchMovies(for: query, page: page)
-        } else {
-            getMovies(for: genreId, page: page)
-        }
-    }
-    
     func configureDataSource() {
         dataSource = UICollectionViewDiffableDataSource<Section, Results>(collectionView: collectionView, cellProvider: { (collectionView, indexPath, movie) -> UICollectionViewCell? in
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: MovieCell.reuseID, for: indexPath) as! MovieCell
@@ -140,8 +110,7 @@ extension MovieListVC: UICollectionViewDelegate {
             guard hasMoreMovies, !isLoadingMoreMovies else { return }
             page += 1
             
-            #warning("With search call, we get error while scrolling. Probably a diffable data source problem.")
-            makeNetworkCall()
+            searchMovies(for: query, page: page)
         }
     }
     

@@ -12,22 +12,29 @@ class MovieCell: UICollectionViewCell {
     static let reuseID          = "MovieCell"
     
     let moviePosterView         = OKCategoryView()
+    let placeholderImage        = SFSymbols.camera
     
     
     override init(frame: CGRect) {
         super.init(frame: frame)
         configure()
-        moviePosterView.categoryImageView.image = SFSymbols.camera
     }
     
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
+    
+    override func prepareForReuse() {
+        super.prepareForReuse()
+        moviePosterView.categoryImageView.image = placeholderImage
+    }
 
     
     func set(movies: Results) {
         moviePosterView.categoryTitleLabel.text = movies.title
-        moviePosterView.categoryImageView.downloadImage(fromURL: movies.backdropURL)
+        if movies.backdropPath != nil {
+            moviePosterView.categoryImageView.downloadImage(fromURL: movies.backdropURL)
+        }
     }
     
     private func configure() {

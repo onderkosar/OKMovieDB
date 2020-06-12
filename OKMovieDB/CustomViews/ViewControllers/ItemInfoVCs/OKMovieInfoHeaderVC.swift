@@ -39,7 +39,9 @@ class OKMovieInfoHeaderVC: UIViewController {
     
     
     func configureUIElements() {
-        posterImageView.downloadImage(fromURL: movie.posterURL)
+        if movie.posterPath != nil {
+         posterImageView.downloadImage(fromURL: movie.posterURL)
+        }
         
         movieTitleLabel.text        = movie.title
         

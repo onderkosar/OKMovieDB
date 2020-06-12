@@ -14,35 +14,17 @@ class OKTabBarController: UITabBarController {
     override func viewDidLoad() {
         super.viewDidLoad()
         UITabBar.appearance().tintColor = .systemGray
-        viewControllers                 = [createMovieCollectionNC(), createSearchNC(), createFavoritesNC()]
+        viewControllers                 = [createCollectionNC(), createSearchNC(), createFavoritesNC()]
     }
     
     
-    func createCategoriesNC() -> UINavigationController {
-        let categoriesVC                = CategoriesVC()
+    func createCollectionNC() -> UINavigationController {
+        let collectionVC           = CollectionVC()
         
-        categoriesVC.title              = "Categories"
-        categoriesVC.tabBarItem         = UITabBarItem(title: "Categories", image: SFSymbols.eyeglasses, tag: 0)
+        collectionVC.title         = "Collection"
+        collectionVC.tabBarItem    = UITabBarItem(title: "Categories", image: SFSymbols.eyeglasses, tag: 0)
         
-        return UINavigationController(rootViewController: categoriesVC)
-    }
-    
-    func createMovieCollectionNC() -> UINavigationController {
-        let movieCollectionVC           = MovieCollectionVC()
-        
-        movieCollectionVC.title         = "Movie Collection"
-        movieCollectionVC.tabBarItem    = UITabBarItem(title: "Categories", image: SFSymbols.eyeglasses, tag: 0)
-        
-        return UINavigationController(rootViewController: movieCollectionVC)
-    }
-    
-    func createFavoritesNC() -> UINavigationController {
-        let favoritesVC                 = FavoritesVC()
-        
-        favoritesVC.title               = "Favorites"
-        favoritesVC.tabBarItem          = UITabBarItem(title: "Favorites", image: SFSymbols.star, tag: 2)
-        
-        return UINavigationController(rootViewController: favoritesVC)
+        return UINavigationController(rootViewController: collectionVC)
     }
     
     func createSearchNC() -> UINavigationController {
@@ -52,5 +34,14 @@ class OKTabBarController: UITabBarController {
         searchVC.tabBarItem             = UITabBarItem(title: "Search", image: SFSymbols.search, tag: 1)
         
         return UINavigationController(rootViewController: searchVC)
+    }
+    
+    func createFavoritesNC() -> UINavigationController {
+        let favoritesVC                 = FavoritesVC()
+        
+        favoritesVC.title               = "Favorites"
+        favoritesVC.tabBarItem          = UITabBarItem(title: "Favorites", image: SFSymbols.star, tag: 2)
+        
+        return UINavigationController(rootViewController: favoritesVC)
     }
 }

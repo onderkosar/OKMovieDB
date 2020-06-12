@@ -13,6 +13,8 @@ struct Movies: Codable, Hashable {
 }
 
 struct Results: Codable, Hashable {
+    let uuid = UUID()
+    
     let title: String
     let id: Int
     let backdropPath: String?

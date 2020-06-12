@@ -27,7 +27,9 @@ class FavoriteCell: UITableViewCell {
     
     func set(favorite: Results) {
         movieTitleLabel.text = favorite.title
-        moviePosterImageView.downloadImage(fromURL: favorite.backdropURL)
+        if favorite.backdropPath != nil {
+            moviePosterImageView.downloadImage(fromURL: favorite.backdropURL)
+        }
     }
     
     private func configure() {

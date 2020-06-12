@@ -17,7 +17,6 @@ class GenreCell: UICollectionViewCell {
         super.init(frame: frame)
         configure()
         configureMovieCell()
-        setMovieCell()
     }
     
     required init?(coder: NSCoder) {
@@ -38,10 +37,10 @@ class GenreCell: UICollectionViewCell {
         ])
     }
     
-    func setMovieCell() {
-        let image   = UIImage(named: "history")!
-        let text    = "Movie name..."
-        
-        movieView.set(image: image, text: text)
+    func setMovieCell(movies: Results) {
+        movieView.cellTitleLabel.text = movies.title
+        if movies.backdropPath != nil {
+            movieView.cellImageView.downloadImage(fromURL: movies.backdropURL)
+        }
     }
 }

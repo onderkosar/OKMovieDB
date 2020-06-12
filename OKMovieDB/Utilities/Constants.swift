@@ -46,12 +46,3 @@ enum Genres {
     static let war: Int             = 10752
     static let tvMovie: Int         = 10770
 }
-
-enum GenreImages {
-    static let horror       = UIImage(named: "horror")!
-    static let romance      = UIImage(named: "romance")!
-    static let action       = UIImage(named: "action")!
-    static let animation    = UIImage(named: "animation")!
-    static let comedy       = UIImage(named: "comedy")!
-    static let history      = UIImage(named: "history")!
-}
