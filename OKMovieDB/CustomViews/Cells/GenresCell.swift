@@ -22,7 +22,10 @@ class GenresCell: UICollectionViewCell {
     var movies: [Results]           = []
     var filteredMovies: [Results]   = []
     
-    var genreId: Int!
+    var genreId: Int! {
+        didSet { if movies.count == 0 { getMovies(for: genreId, page: 1) } }
+    }
+    
     var page                        = 1
     var hasMoreMovies               = true
     var isSearching                 = false

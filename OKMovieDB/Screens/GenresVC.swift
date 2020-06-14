@@ -11,30 +11,6 @@ import UIKit
 class GenresVC: UIViewController {
     var genresCollectionView: UICollectionView!
     
-    var genreType   = [Genres.horror,
-                       Genres.action,
-                       Genres.romance,
-                       Genres.history,
-                       Genres.comedy,
-                       Genres.animation,
-                       Genres.war,
-                       Genres.adventure,
-                       Genres.drama
-        
-    ]
-    
-    var genreTitle  = ["Horror",
-                       "Action",
-                       "Romance",
-                       "History",
-                       "Comedy",
-                       "Animation",
-                       "War",
-                       "Adventure",
-                       "Drama"
-    ]
-    
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         configureCollectionView()
@@ -62,14 +38,13 @@ extension GenresVC: UICollectionViewDelegateFlowLayout {
 extension GenresVC: UICollectionViewDelegate, UICollectionViewDataSource {
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return genreType.count
+        return genreDict.count
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: GenresCell.reuseID, for: indexPath) as! GenresCell
-        cell.collectionTitleLabel.text = genreTitle[indexPath.row] + " Movies"
-        cell.getMovies(for: genreType[indexPath.row], page: 1)
-        cell.genreId = genreType[indexPath.row]
+        cell.collectionTitleLabel.text = genreDict[indexPath.row]["title"] as! String + " Movies"
+        cell.genreId = (genreDict[indexPath.row]["id"] as! Int)
         return cell
     }
 }

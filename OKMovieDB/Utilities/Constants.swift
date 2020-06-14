@@ -10,6 +10,20 @@ import UIKit
 
 let cellHeight: CGFloat = 170
 
+let genreDict = [["title": "Horror", "id": 27],
+                 ["title": "Action", "id": 28],
+                 ["title": "Adventure", "id": 12],
+                 ["title": "War", "id": 10752],
+                 ["title": "Comedy", "id": 35],
+                 ["title": "Romance", "id": 10749],
+                 ["title": "Fantasy", "id": 14],
+                 ["title": "Drama", "id": 18],
+                 ["title": "Crime", "id": 80],
+                 ["title": "Science Fiction", "id": 878],
+                 ["title": "History", "id": 36],
+                 ["title": "Animation", "id": 16],
+]
+
 enum SFSymbols {
     static let star         = UIImage(systemName: "star")
     static let starFilled   = UIImage(systemName: "star.fill")
