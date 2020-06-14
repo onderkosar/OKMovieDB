@@ -1,17 +1,17 @@
 //
-//  OKMovieInfoHeaderVC.swift
+//  MovieInfoCardVC.swift
 //  OKMovieDB
 //
-//  Created by Önder Koşar on 6.06.2020.
+//  Created by Önder Koşar on 14.06.2020.
 //  Copyright © 2020 Önder Koşar. All rights reserved.
 //
 
 import UIKit
 
-class OKMovieInfoHeaderVC: UIViewController {
-
-    let posterImageView     = OKPosterImageView(frame: .zero)
-    let movieTitleLabel     = OKTitleLabel(textAlignment: .left, fontSize: 30)
+class MovieInfoCardVC: UIViewController {
+    
+    let movieImageView      = OKImageView(content: .scaleAspectFit)
+    let movieTitleLabel     = OKTitleLabel(textAlignment: .left, fontSize: 20)
     let dateImageView       = UIImageView()
     let releaseDateLabel    = OKSecondaryTitleLabel(fontSize: 20)
     let voteStarsLabel      = OKSecondaryTitleLabel(fontSize: 14)
@@ -32,18 +32,17 @@ class OKMovieInfoHeaderVC: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        view.addSubviews(posterImageView, movieTitleLabel, dateImageView, releaseDateLabel, voteStarsLabel, voteCountLabel, overviewLabel)
-        layoutUI()
-        configureUIElements()
+        configureUI()
+        configureElements()
     }
     
     
-    func configureUIElements() {
-        if movie.posterPath != nil {
-         posterImageView.downloadImage(fromURL: movie.posterURL)
-        }
+    func configureElements() {
+        if movie.posterPath != nil { movieImageView.downloadImage(fromURL: movie.posterURL) }
+        dateImageView.translatesAutoresizingMaskIntoConstraints = false
         
         movieTitleLabel.text        = movie.title
+        movieTitleLabel.numberOfLines = 2
         
         dateImageView.image         = SFSymbols.calendar
         dateImageView.tintColor     = .secondaryLabel
@@ -53,30 +52,30 @@ class OKMovieInfoHeaderVC: UIViewController {
         voteStarsLabel.text         = movie.ratingStarsVoted
         voteStarsLabel.tintColor    = .systemGray
         voteStarsLabel.textColor    = .systemYellow
-
+        
         voteCountLabel.text         = movie.ratingStarsRemaining
         
+        overviewLabel.numberOfLines = 10
         overviewLabel.text          = movie.overview
     }
     
-    func layoutUI() {
-        dateImageView.translatesAutoresizingMaskIntoConstraints = false
-        overviewLabel.numberOfLines = 10
+    func configureUI() {
+        view.addSubviews(movieImageView, movieTitleLabel, dateImageView, releaseDateLabel, voteStarsLabel, voteCountLabel, overviewLabel)
         
         let posterHeight: CGFloat       = view.bounds.width
         let posterWidth:CGFloat         = posterHeight*2/3
         let padding: CGFloat            = 20
         
         NSLayoutConstraint.activate([
-            posterImageView.topAnchor.constraint(equalTo: view.topAnchor, constant: padding),
-            posterImageView.centerXAnchor.constraint(equalTo: view.centerXAnchor),
-            posterImageView.widthAnchor.constraint(equalToConstant: posterWidth),
-            posterImageView.heightAnchor.constraint(equalToConstant: posterHeight),
+            movieImageView.topAnchor.constraint(equalTo: view.topAnchor, constant: padding),
+            movieImageView.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+            movieImageView.widthAnchor.constraint(equalToConstant: posterWidth),
+            movieImageView.heightAnchor.constraint(equalToConstant: posterHeight),
             
-            movieTitleLabel.topAnchor.constraint(equalTo: posterImageView.bottomAnchor, constant: padding),
+            movieTitleLabel.topAnchor.constraint(equalTo: movieImageView.bottomAnchor, constant: padding),
             movieTitleLabel.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: padding),
             movieTitleLabel.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -padding),
-            movieTitleLabel.heightAnchor.constraint(equalToConstant: 35),
+            movieTitleLabel.heightAnchor.constraint(equalToConstant: 42),
             
             dateImageView.topAnchor.constraint(equalTo: movieTitleLabel.bottomAnchor, constant: padding/2),
             dateImageView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: padding),

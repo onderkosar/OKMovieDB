@@ -14,6 +14,7 @@ struct Movie: Codable, Hashable {
     let releaseDate: String
     let overview: String
     let posterPath: String?
+    let backdropPath: String?
     let voteAverage: Double
     let voteCount: Int
     
@@ -21,13 +22,17 @@ struct Movie: Codable, Hashable {
         return URL(string: "https://image.tmdb.org/t/p/w500\(posterPath ?? "")")!
     }
     
+    var backdropURL: URL {
+        return URL(string: "https://image.tmdb.org/t/p/w500\(backdropPath ?? "")")!
+    }
+    
     var date: String {
         return releaseDate.convertToDisplayFormat()
     }
     
     var ratingStarsVoted: String {
-        let rating = Int(voteAverage)
-        let ratingText = (0..<rating).reduce("") { (acc, _) -> String in
+        let rating      = Int(voteAverage)
+        let ratingText  = (0..<rating).reduce("") { (acc, _) -> String in
             return acc + "★"
         }
         
@@ -35,8 +40,8 @@ struct Movie: Codable, Hashable {
     }
     
     var ratingStarsRemaining: String {
-        let remainingStars = 10-Int(voteAverage)
-        let remainingStarText = (0..<remainingStars).reduce("") { (acc, _) -> String in
+        let remainingStars      = 10-Int(voteAverage)
+        let remainingStarText   = (0..<remainingStars).reduce("") { (acc, _) -> String in
             return acc + "★"
         }
         return "\(remainingStarText) (\(voteCount) votes)"

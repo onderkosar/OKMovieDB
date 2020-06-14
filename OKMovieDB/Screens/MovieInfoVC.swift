@@ -23,6 +23,28 @@ class MovieInfoVC: OKDataLoadingVC {
         configureScrollView()
     }
     
+    func configureViewController() {
+        view.backgroundColor                = .systemBackground
+        
+        let doneButton                      = UIBarButtonItem(barButtonSystemItem: .done, target: self, action: #selector(dismissVC))
+        let favButton                       = UIBarButtonItem(image: SFSymbols.starFilled, style: .done, target: self, action: #selector(addFavorites))
+        navigationItem.rightBarButtonItem   = doneButton
+        navigationItem.leftBarButtonItem    = favButton
+    }
+    
+    func configureScrollView() {
+        view.addSubview(scrollView)
+        scrollView.addSubview(headerView)
+        
+        scrollView.pinToEdges(of: view)
+        headerView.pinToEdges(of: scrollView)
+        
+        NSLayoutConstraint.activate([
+            headerView.widthAnchor.constraint(equalTo: scrollView.widthAnchor),
+            headerView.heightAnchor.constraint(equalToConstant: 800)
+        ])
+    }
+    
     
     @objc func dismissVC() {
         dismiss(animated: true)
@@ -45,7 +67,7 @@ class MovieInfoVC: OKDataLoadingVC {
     }
     
     func addMovieToFavorites(movie: Movie) {
-        let favorite = Results(title: movie.title, id: movie.id, backdropPath: movie.posterPath)
+        let favorite = Results(title: movie.title, id: movie.id, backdropPath: movie.backdropPath)
         PersistenceManager.updateWith(favorite: favorite, actionType: .add) { [weak self] error in
             guard let self = self else { return }
             guard let error = error else {
@@ -63,7 +85,7 @@ class MovieInfoVC: OKDataLoadingVC {
             switch result {
             case .success(let movie):
                 DispatchQueue.main.async {
-                    self.add(childVC: OKMovieInfoHeaderVC(movie: movie), to: self.headerView)
+                    self.add(childVC: MovieInfoCardVC(movie: movie), to: self.headerView)
                 }
 
             case .failure(let error):
@@ -72,27 +94,7 @@ class MovieInfoVC: OKDataLoadingVC {
         }
     }
     
-    func configureViewController() {
-        view.backgroundColor                = .systemBackground
-        
-        let doneButton                      = UIBarButtonItem(barButtonSystemItem: .done, target: self, action: #selector(dismissVC))
-        let favButton                       = UIBarButtonItem(image: SFSymbols.starFilled, style: .done, target: self, action: #selector(addFavorites))
-        navigationItem.rightBarButtonItem   = doneButton
-        navigationItem.leftBarButtonItem    = favButton
-    }
     
-    func configureScrollView() {
-        view.addSubview(scrollView)
-        scrollView.addSubview(headerView)
-        
-        scrollView.pinToEdges(of: view)
-        headerView.pinToEdges(of: scrollView)
-        
-        NSLayoutConstraint.activate([
-            headerView.widthAnchor.constraint(equalTo: scrollView.widthAnchor),
-            headerView.heightAnchor.constraint(equalToConstant: 800)
-        ])
-    }
         
     func add(childVC: UIViewController, to containerView: UIView) {
         addChild(childVC)

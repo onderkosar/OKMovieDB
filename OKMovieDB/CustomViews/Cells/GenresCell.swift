@@ -1,35 +1,38 @@
 //
-//  CollectionMainCell.swift
+//  GenresCell.swift
 //  OKMovieDB
 //
-//  Created by Önder Koşar on 11.06.2020.
+//  Created by Önder Koşar on 14.06.2020.
 //  Copyright © 2020 Önder Koşar. All rights reserved.
 //
 
 import UIKit
 
-class CollectionMainCell: UICollectionViewCell {
-    static let reuseID = "collectionMainCell"
+class GenresCell: UICollectionViewCell {
+    static let reuseID = "genresCell"
     
     var moviesCollectionView: UICollectionView!
-    let collectionNameLabel = OKTitleLabel(textAlignment: .left, fontSize: 18)
+    
+    let collectionTitleLabel = OKTitleLabel(textAlignment: .left, fontSize: 20)
     
     enum Section { case main }
+    
     var dataSource: UICollectionViewDiffableDataSource<Section, Results>!
-
+    
     var movies: [Results]           = []
     var filteredMovies: [Results]   = []
     
     var genreId: Int!
-    
     var page                        = 1
     var hasMoreMovies               = true
     var isSearching                 = false
     var isLoadingMoreMovies         = false
     
+    
     override init(frame: CGRect) {
         super.init(frame: frame)
-        configureMoviesCollectionView()
+        configureElements()
+        configureCollectionView()
         configureDataSource()
     }
     
@@ -37,30 +40,33 @@ class CollectionMainCell: UICollectionViewCell {
         fatalError("init(coder:) has not been implemented")
     }
     
-    func configureMoviesCollectionView() {
+    func configureElements() {
         let layout = UICollectionViewFlowLayout()
         layout.scrollDirection = .horizontal
         
         moviesCollectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
         moviesCollectionView.translatesAutoresizingMaskIntoConstraints = false
-        moviesCollectionView.backgroundColor = .systemBackground
-        moviesCollectionView.delegate   = self
-        moviesCollectionView.register(GenreCell.self, forCellWithReuseIdentifier: GenreCell.reuseID)
         
-        collectionNameLabel.text =  "Movie genre"
-        addSubview(collectionNameLabel)
-        addSubview(moviesCollectionView)
+        moviesCollectionView.backgroundColor    = .systemBackground
+        moviesCollectionView.delegate           = self
+        moviesCollectionView.register(MovieCell.self, forCellWithReuseIdentifier: MovieCell.reuseID)
         
+        collectionTitleLabel.text =  "Movie genre"
+    }
+    
+    private func configureCollectionView() {
+        
+        addSubviews(collectionTitleLabel, moviesCollectionView)
         
         NSLayoutConstraint.activate([
-            collectionNameLabel.topAnchor.constraint(equalTo: contentView.safeAreaLayoutGuide.topAnchor),
-            collectionNameLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 25),
-            collectionNameLabel.trailingAnchor.constraint(equalTo: contentView.trailingAnchor),
-            collectionNameLabel.heightAnchor.constraint(equalToConstant: 25),
+            collectionTitleLabel.topAnchor.constraint(equalTo: contentView.safeAreaLayoutGuide.topAnchor),
+            collectionTitleLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 10),
+            collectionTitleLabel.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -5),
+            collectionTitleLabel.heightAnchor.constraint(equalToConstant: 25),
             
-            moviesCollectionView.topAnchor.constraint(equalTo: collectionNameLabel.bottomAnchor),
-            moviesCollectionView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor),
-            moviesCollectionView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor),
+            moviesCollectionView.topAnchor.constraint(equalTo: collectionTitleLabel.bottomAnchor),
+            moviesCollectionView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 5),
+            moviesCollectionView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -5),
             moviesCollectionView.bottomAnchor.constraint(equalTo: contentView.safeAreaLayoutGuide.bottomAnchor)
         ])
     }
@@ -96,9 +102,9 @@ class CollectionMainCell: UICollectionViewCell {
     
     func configureDataSource() {
         dataSource = UICollectionViewDiffableDataSource<Section, Results>(collectionView: moviesCollectionView, cellProvider: { (collectionView, indexPath, movie) -> UICollectionViewCell? in
-            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: GenreCell.reuseID, for: indexPath) as! GenreCell
-            cell.setMovieCell(movies: movie)
-
+            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: MovieCell.reuseID, for: indexPath) as! MovieCell
+            cell.set(movies: movie)
+            
             return cell
         })
     }
@@ -107,12 +113,12 @@ class CollectionMainCell: UICollectionViewCell {
         var snapshot = NSDiffableDataSourceSnapshot<Section, Results>()
         snapshot.appendSections([.main])
         snapshot.appendItems(movies)
-
+        
         DispatchQueue.main.async { self.dataSource.apply(snapshot, animatingDifferences: true) }
     }
 }
 
-extension CollectionMainCell: UICollectionViewDelegateFlowLayout {
+extension GenresCell: UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         let cellWidth: CGFloat = frame.height*4/3
         let cellHeight: CGFloat = frame.height
@@ -120,7 +126,7 @@ extension CollectionMainCell: UICollectionViewDelegateFlowLayout {
     }
 }
 
-extension CollectionMainCell: UICollectionViewDelegate {
+extension GenresCell: UICollectionViewDelegate {
     func scrollViewDidEndDragging(_ scrollView: UIScrollView, willDecelerate decelerate: Bool) {
         let offsetX        = scrollView.contentOffset.x
         let contentWidth   = scrollView.contentSize.width
@@ -134,7 +140,7 @@ extension CollectionMainCell: UICollectionViewDelegate {
         }
     }
     
-    func collectionView(_  collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         let activeArray     = isSearching ? filteredMovies : movies
         let movies          = activeArray[indexPath.item]
         
@@ -142,7 +148,6 @@ extension CollectionMainCell: UICollectionViewDelegate {
         destVC.movieId      = movies.id
         
         let navController   = UINavigationController(rootViewController: destVC)
-        self.window?.rootViewController?.present(navController, animated: true, completion: nil)
+        self.window?.rootViewController?.present(navController, animated: true)
     }
 }
-

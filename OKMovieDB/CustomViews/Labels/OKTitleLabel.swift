@@ -22,6 +22,7 @@ class OKTitleLabel: UILabel {
     
     convenience init(textAlignment: NSTextAlignment, fontSize: CGFloat) {
         self.init(frame: .zero)
+        configure()
         self.textAlignment  = textAlignment
         self.font           = UIFont.systemFont(ofSize: fontSize, weight: .bold)
     }
@@ -29,10 +30,9 @@ class OKTitleLabel: UILabel {
     
     private func configure() {
         translatesAutoresizingMaskIntoConstraints = false
-        
-        adjustsFontSizeToFitWidth   = true
         textColor                   = .label
-        minimumScaleFactor          = 0.9
+        adjustsFontSizeToFitWidth   = true
+        minimumScaleFactor          = 0.8
         lineBreakMode               = .byTruncatingTail
     }
 }

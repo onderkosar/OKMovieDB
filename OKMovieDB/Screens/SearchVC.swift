@@ -18,7 +18,7 @@ class SearchVC: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        view.backgroundColor = .systemRed
+        view.backgroundColor = .systemBackground
         view.addSubviews(searchTextField, searchButton)
         
         configureSearchTextField()
@@ -33,14 +33,21 @@ class SearchVC: UIViewController {
     }
     
     @objc func pushMovieListVC() {
-        let movieListVC                 = MovieListVC()
-        movieListVC.query               = searchTextField.text!.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed)
-        movieListVC.page                = 1
         
-        navigationController?.pushViewController(movieListVC, animated: true)
+        guard isMovieNameEntered else {
+            presentOKAlertOnMainThread(title: "Textfield is empty", message: "Please type to search. We need to know which to look for\n😃", buttonTitle: "Ok")
+            return
+        }
+        
+        let searchListVC    = SearchListVC()
+        searchListVC.query  = searchTextField.text!.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed)
+        searchListVC.page   = 1
+        
+        navigationController?.pushViewController(searchListVC, animated: true)
     }
     
     func configureSearchTextField() {
+        searchTextField.delegate = self
         NSLayoutConstraint.activate([
             searchTextField.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 50),
             searchTextField.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: 50),

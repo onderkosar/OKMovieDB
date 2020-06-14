@@ -77,17 +77,17 @@ extension FavoritesVC: UITableViewDataSource, UITableViewDelegate {
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell        = tableView.dequeueReusableCell(withIdentifier: FavoriteCell.reuseID) as! FavoriteCell
-        let favorite    = favorites[indexPath.row]
+        let cell            = tableView.dequeueReusableCell(withIdentifier: FavoriteCell.reuseID) as! FavoriteCell
+        let favorite        = favorites[indexPath.row]
         cell.set(favorite: favorite)
         
         return cell
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        let favorite = favorites[indexPath.row]
-        let destVC = MovieInfoVC()
-        destVC.movieId = favorite.id
+        let favorite        = favorites[indexPath.row]
+        let destVC          = MovieInfoVC()
+        destVC.movieId      = favorite.id
         
         let navController   = UINavigationController(rootViewController: destVC)
         present(navController, animated: true)
@@ -98,6 +98,7 @@ extension FavoritesVC: UITableViewDataSource, UITableViewDelegate {
         
         PersistenceManager.updateWith(favorite: favorites[indexPath.row], actionType: .remove) { [weak self] error in
             guard let self = self else { return }
+            
             guard let error = error else {
                 self.favorites.remove(at: indexPath.row)
                 tableView.deleteRows(at: [indexPath], with: .left)

@@ -13,18 +13,18 @@ class OKTabBarController: UITabBarController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        UITabBar.appearance().tintColor = .systemGray
-        viewControllers                 = [createCollectionNC(), createSearchNC(), createFavoritesNC()]
+        UITabBar.appearance().tintColor     = .systemGray
+        viewControllers                     = [createGenresNC(), createSearchNC(), createFavoritesNC()]
     }
     
     
-    func createCollectionNC() -> UINavigationController {
-        let collectionVC           = CollectionVC()
+    func createGenresNC() -> UINavigationController {
+        let genresVC                    = GenresVC()
         
-        collectionVC.title         = "Collection"
-        collectionVC.tabBarItem    = UITabBarItem(title: "Categories", image: SFSymbols.eyeglasses, tag: 0)
+        genresVC.title                  = "Movie Genres"
+        genresVC.tabBarItem             = UITabBarItem(title: "Genres", image: SFSymbols.eyeglasses, tag: 0)
         
-        return UINavigationController(rootViewController: collectionVC)
+        return UINavigationController(rootViewController: genresVC)
     }
     
     func createSearchNC() -> UINavigationController {

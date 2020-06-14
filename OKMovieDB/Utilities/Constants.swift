@@ -8,6 +8,8 @@
 
 import UIKit
 
+let cellHeight: CGFloat = 170
+
 enum SFSymbols {
     static let star         = UIImage(systemName: "star")
     static let starFilled   = UIImage(systemName: "star.fill")

@@ -1,14 +1,14 @@
 //
-//  OKPosterImageView.swift
+//  OKImageView.swift
 //  OKMovieDB
 //
-//  Created by Önder Koşar on 5.06.2020.
+//  Created by Önder Koşar on 14.06.2020.
 //  Copyright © 2020 Önder Koşar. All rights reserved.
 //
 
 import UIKit
 
-class OKPosterImageView: UIImageView {
+class OKImageView: UIImageView {
     
     let cache               = NetworkManager.shared.cache
     let placeholderImage    = SFSymbols.camera
@@ -23,6 +23,11 @@ class OKPosterImageView: UIImageView {
         fatalError("init(coder:) has not been implemented")
     }
     
+    convenience init(content: ContentMode) {
+        self.init(frame: .zero)
+        contentMode = content
+    }
+    
     
     private func configure() {
         translatesAutoresizingMaskIntoConstraints = false
@@ -30,7 +35,6 @@ class OKPosterImageView: UIImageView {
         layer.cornerRadius  = 10
         clipsToBounds       = true
         image               = placeholderImage
-        contentMode         = .scaleAspectFit
         tintColor           = .secondaryLabel
     }
     
