@@ -11,15 +11,16 @@ import UIKit
 
 class SearchVC: UIViewController {
     
-    let searchTextField = OKTextField()
-    let searchButton    = OKButton(backgroundColor: .systemGray, title: "Search Movie")
+    let searchTextField     = OKTextField()
+    let searchButton        = OKButton(backgroundColor: .systemGray, title: "Search Movie")
+    
+    let padding: CGFloat    = 50
     
     var isMovieNameEntered: Bool { return !searchTextField.text!.isEmpty }
     
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .systemBackground
-        view.addSubviews(searchTextField, searchButton)
         
         configureSearchTextField()
         configureSearchButton()
@@ -47,22 +48,24 @@ class SearchVC: UIViewController {
     }
     
     func configureSearchTextField() {
+        view.addSubview(searchTextField)
         searchTextField.delegate = self
         NSLayoutConstraint.activate([
-            searchTextField.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 50),
-            searchTextField.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: 50),
-            searchTextField.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -50),
-            searchTextField.heightAnchor.constraint(equalToConstant: 40)
+            searchTextField.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: padding),
+            searchTextField.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: padding),
+            searchTextField.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -padding),
+            searchTextField.heightAnchor.constraint(equalToConstant: padding)
         ])
     }
     
     func configureSearchButton() {
+        view.addSubview(searchButton)
         searchButton.addTarget(self, action: #selector(pushMovieListVC), for: .touchUpInside)
         NSLayoutConstraint.activate([
-            searchButton.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: -50),
-            searchButton.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: 80),
-            searchButton.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -80),
-            searchButton.heightAnchor.constraint(equalToConstant: 40)
+            searchButton.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: -padding),
+            searchButton.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: padding),
+            searchButton.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -padding),
+            searchButton.heightAnchor.constraint(equalToConstant: padding)
         ])
     }
 }

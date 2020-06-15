@@ -17,6 +17,9 @@ class FavoriteCell: UITableViewCell {
     
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
+        backgroundColor     = .systemBackground
+        accessoryType       = .disclosureIndicator
+        
         configure()
     }
     
@@ -36,19 +39,24 @@ class FavoriteCell: UITableViewCell {
     private func configure() {
         addSubviews(movieImageView, movieTitleLabel)
         
-        accessoryType           = .disclosureIndicator
-        let padding: CGFloat    = 12
+        let padding: CGFloat        = 10
+        let contenHeight: CGFloat   = contentView.frame.height
+        let contentWidth: CGFloat   = contentView.frame.width
+        
+        let imageHeight: CGFloat    = contenHeight+16
+        let labelHeight: CGFloat    = (movieTitleLabel.font.pointSize * 2) + 2
+        let labelWidth: CGFloat     = contentWidth-(imageHeight+padding)
         
         NSLayoutConstraint.activate([
             movieImageView.centerYAnchor.constraint(equalTo: self.centerYAnchor),
-            movieImageView.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: padding),
-            movieImageView.heightAnchor.constraint(equalToConstant: 60),
-            movieImageView.widthAnchor.constraint(equalToConstant: 60),
+            movieImageView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: padding),
+            movieImageView.heightAnchor.constraint(equalToConstant: imageHeight),
+            movieImageView.widthAnchor.constraint(equalToConstant: imageHeight),
             
-            movieTitleLabel.centerYAnchor.constraint(equalTo: self.centerYAnchor),
-            movieTitleLabel.leadingAnchor.constraint(equalTo: movieImageView.trailingAnchor, constant: 24),
-            movieTitleLabel.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: -padding*3),
-            movieTitleLabel.heightAnchor.constraint(equalToConstant: 40)
+            movieTitleLabel.centerYAnchor.constraint(equalTo: contentView.centerYAnchor),
+            movieTitleLabel.leadingAnchor.constraint(equalTo: movieImageView.trailingAnchor, constant: padding),
+            movieTitleLabel.widthAnchor.constraint(equalToConstant: labelWidth),
+            movieTitleLabel.heightAnchor.constraint(equalToConstant: labelHeight)
         ])
     }
 }

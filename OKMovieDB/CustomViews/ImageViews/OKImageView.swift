@@ -11,7 +11,7 @@ import UIKit
 class OKImageView: UIImageView {
     
     let cache               = NetworkManager.shared.cache
-    let placeholderImage    = SFSymbols.camera
+    let placeholderImage    = Images.moviePlaceholder
     
     
     override init(frame: CGRect) {

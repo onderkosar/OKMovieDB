@@ -80,6 +80,7 @@ extension FavoritesVC: UITableViewDataSource, UITableViewDelegate {
         let cell            = tableView.dequeueReusableCell(withIdentifier: FavoriteCell.reuseID) as! FavoriteCell
         let favorite        = favorites[indexPath.row]
         cell.set(favorite: favorite)
+        cell.selectionStyle = .none
         
         return cell
     }

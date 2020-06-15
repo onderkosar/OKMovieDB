@@ -31,7 +31,7 @@ class OKSecondaryTitleLabel: UILabel {
         
         adjustsFontSizeToFitWidth   = true
         textColor                   = .secondaryLabel
-        minimumScaleFactor          = 0.9
+        minimumScaleFactor          = 0.8
         lineBreakMode               = .byTruncatingTail
     }
 }

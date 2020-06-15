@@ -31,7 +31,7 @@ class GenresVC: UIViewController {
 
 extension GenresVC: UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        return CGSize(width: view.frame.width, height: cellHeight-20)
+        return CGSize(width: view.frame.width, height: view.frame.width/2.5)
     }
 }
 

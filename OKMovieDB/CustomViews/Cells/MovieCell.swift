@@ -11,10 +11,10 @@ import UIKit
 class MovieCell: UICollectionViewCell {
     static let reuseID      = "movieCell"
     
-    let placeholderImage    = SFSymbols.camera
+    let placeholderImage    = Images.moviePlaceholder
     
     let movieImageView      = OKImageView(content: .scaleAspectFit)
-    let movieTitleLabel     = OKTitleLabel(textAlignment: .left, fontSize: 15)
+    let movieTitleLabel     = OKTitleLabel(textAlignment: .center, fontSize: 20)
     
     
     override init(frame: CGRect) {
@@ -41,19 +41,27 @@ class MovieCell: UICollectionViewCell {
     private func configure() {
         addSubviews(movieImageView, movieTitleLabel)
         
-        movieImageView.tintColor         = .secondaryLabel
-        movieImageView.layer.borderWidth = 2
+        movieTitleLabel.backgroundColor     = UIColor.black.withAlphaComponent(0.5)
+        movieTitleLabel.textColor           = .white
+        movieTitleLabel.clipsToBounds       = true
+        movieTitleLabel.layer.cornerRadius  = 10
+        movieTitleLabel.layer.maskedCorners = [ .layerMaxXMaxYCorner, .layerMinXMaxYCorner]
+        
+        let padding:CGFloat                 = 5
+        let imageHeight: CGFloat            = contentView.frame.height-padding*3
+        let imageWidh: CGFloat              = imageHeight*16/9
+        let labelHeight: CGFloat            = movieTitleLabel.font.pointSize + 10
 
         NSLayoutConstraint.activate([
             movieImageView.topAnchor.constraint(equalTo: contentView.topAnchor),
             movieImageView.centerXAnchor.constraint(equalTo: contentView.centerXAnchor),
-            movieImageView.widthAnchor.constraint(equalToConstant: cellHeight),
-            movieImageView.heightAnchor.constraint(equalToConstant: cellHeight*9/16),
+            movieImageView.widthAnchor.constraint(equalToConstant: imageWidh),
+            movieImageView.heightAnchor.constraint(equalToConstant: imageHeight),
             
-            movieTitleLabel.topAnchor.constraint(equalTo: movieImageView.bottomAnchor, constant: 5),
-            movieTitleLabel.centerXAnchor.constraint(equalTo: contentView.centerXAnchor),
-            movieTitleLabel.widthAnchor.constraint(equalToConstant: cellHeight),
-            movieTitleLabel.heightAnchor.constraint(equalToConstant: 17)
+            movieTitleLabel.leadingAnchor.constraint(equalTo: movieImageView.leadingAnchor),
+            movieTitleLabel.trailingAnchor.constraint(equalTo: movieImageView.trailingAnchor),
+            movieTitleLabel.heightAnchor.constraint(equalToConstant: labelHeight),
+            movieTitleLabel.bottomAnchor.constraint(equalTo: movieImageView.bottomAnchor)
         ])
     }
 }

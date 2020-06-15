@@ -28,6 +28,7 @@ class SearchListVC: OKDataLoadingVC {
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .systemBackground
+        
         configureCollectionView()
         configureDataSource()
         searchMovies(for: query, page: page)

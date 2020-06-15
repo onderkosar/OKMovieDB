@@ -28,6 +28,10 @@ class MovieInfoVC: OKDataLoadingVC {
         
         let doneButton                      = UIBarButtonItem(barButtonSystemItem: .done, target: self, action: #selector(dismissVC))
         let favButton                       = UIBarButtonItem(image: SFSymbols.starFilled, style: .done, target: self, action: #selector(addFavorites))
+        
+        doneButton.tintColor                = .systemOrange
+        favButton.tintColor                 = .systemOrange
+        
         navigationItem.rightBarButtonItem   = doneButton
         navigationItem.leftBarButtonItem    = favButton
     }

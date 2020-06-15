@@ -61,15 +61,18 @@ class GenresCell: UICollectionViewCell {
         
         addSubviews(collectionTitleLabel, moviesCollectionView)
         
+        let padding: CGFloat        = 5
+        let titleHeight: CGFloat    = collectionTitleLabel.font.pointSize + 2
+        
         NSLayoutConstraint.activate([
             collectionTitleLabel.topAnchor.constraint(equalTo: contentView.safeAreaLayoutGuide.topAnchor),
-            collectionTitleLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 10),
-            collectionTitleLabel.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -5),
-            collectionTitleLabel.heightAnchor.constraint(equalToConstant: 25),
+            collectionTitleLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: padding),
+            collectionTitleLabel.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -padding),
+            collectionTitleLabel.heightAnchor.constraint(equalToConstant: titleHeight),
             
             moviesCollectionView.topAnchor.constraint(equalTo: collectionTitleLabel.bottomAnchor),
-            moviesCollectionView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 5),
-            moviesCollectionView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -5),
+            moviesCollectionView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: padding),
+            moviesCollectionView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -padding),
             moviesCollectionView.bottomAnchor.constraint(equalTo: contentView.safeAreaLayoutGuide.bottomAnchor)
         ])
     }
