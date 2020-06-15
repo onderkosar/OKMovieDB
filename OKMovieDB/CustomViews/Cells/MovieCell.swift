@@ -50,7 +50,7 @@ class MovieCell: UICollectionViewCell {
         let padding:CGFloat                 = 5
         let imageHeight: CGFloat            = contentView.frame.height-padding*3
         let imageWidh: CGFloat              = imageHeight*16/9
-        let labelHeight: CGFloat            = movieTitleLabel.font.pointSize + 10
+        let labelHeight: CGFloat            = movieTitleLabel.font.pointSize + 5
 
         NSLayoutConstraint.activate([
             movieImageView.topAnchor.constraint(equalTo: contentView.topAnchor),
