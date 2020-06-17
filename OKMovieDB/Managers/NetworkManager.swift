@@ -13,8 +13,9 @@ class NetworkManager {
     static let shared       = NetworkManager()
     let cache               = NSCache<NSString, UIImage>()
     
-    private let baseURL     = "https://api.themoviedb.org/3/"
+    #warning("Register for an API key at themoviedb.org and place below.")
     private let apiKey      = Keys.apiKeyMovieDB
+    private let baseURL     = "https://api.themoviedb.org/3/"
     
     private init() {}
     
