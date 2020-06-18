@@ -33,6 +33,6 @@ class OKBodyLabel: UILabel {
         adjustsFontForContentSizeCategory   = true
         adjustsFontSizeToFitWidth           = true
         minimumScaleFactor                  = 0.75
-        lineBreakMode                       = .byClipping
+        lineBreakMode                       = .byTruncatingTail
     }
 }

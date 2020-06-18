@@ -10,17 +10,25 @@ import UIKit
 
 class MovieInfoVC: OKDataLoadingVC {
     
-    let scrollView = UIScrollView()
-    let headerView = UIView()
+    let scrollView      = UIScrollView()
+    let contentView     = UIView()
+    
+    let headerView      = UIView()
+    let overviewView    = UIView()
+    let castsView       = UIView()
+    
+    var itemViews: [UIView] = []
     
     var movieId : Int!
     
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        getMovieInfo()
         configureViewController()
         configureScrollView()
+        layoutUI()
+        getMovieInfo()
+        getCastInfo()
     }
     
     func configureViewController() {
@@ -38,14 +46,41 @@ class MovieInfoVC: OKDataLoadingVC {
     
     func configureScrollView() {
         view.addSubview(scrollView)
-        scrollView.addSubview(headerView)
+        scrollView.addSubview(contentView)
         
         scrollView.pinToEdges(of: view)
-        headerView.pinToEdges(of: scrollView)
+        contentView.pinToEdges(of: scrollView)
         
         NSLayoutConstraint.activate([
-            headerView.widthAnchor.constraint(equalTo: scrollView.widthAnchor),
-            headerView.heightAnchor.constraint(equalToConstant: 800)
+            contentView.widthAnchor.constraint(equalTo: scrollView.widthAnchor),
+            contentView.heightAnchor.constraint(equalToConstant: 1200)
+        ])
+    }
+    
+    func layoutUI() {
+        let padding: CGFloat    = 10
+        
+        itemViews = [headerView, overviewView, castsView]
+        
+        for itemView in itemViews {
+            contentView.addSubview(itemView)
+            itemView.translatesAutoresizingMaskIntoConstraints = false
+            
+            NSLayoutConstraint.activate([
+                itemView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: padding),
+                itemView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -padding)
+            ])
+        }
+        
+        NSLayoutConstraint.activate([
+            headerView.topAnchor.constraint(equalTo: contentView.topAnchor),
+            headerView.heightAnchor.constraint(equalToConstant: 520),
+            
+            overviewView.topAnchor.constraint(equalTo: headerView.bottomAnchor, constant: padding),
+            overviewView.heightAnchor.constraint(equalToConstant: 320),
+            
+            castsView.topAnchor.constraint(equalTo: overviewView.bottomAnchor, constant: padding),
+            castsView.heightAnchor.constraint(equalToConstant: 260),
         ])
     }
     
@@ -88,18 +123,31 @@ class MovieInfoVC: OKDataLoadingVC {
 
             switch result {
             case .success(let movie):
-                DispatchQueue.main.async {
-                    self.add(childVC: MovieInfoCardVC(movie: movie), to: self.headerView)
-                }
-
+                DispatchQueue.main.async { self.configureUIElements(with: movie) }
             case .failure(let error):
                 self.presentOKAlertOnMainThread(title: "Something went wrong.", message: error.rawValue, buttonTitle: "Ok")
             }
         }
     }
     
+    func getCastInfo() {
+        NetworkManager.shared.getCastInfo(for: movieId) { [weak self] result in
+            guard let self = self else { return }
+
+            switch result {
+            case .success(let casts):
+                DispatchQueue.main.async { self.add(childVC: MovieCastVC(cast: casts), to: self.castsView) }
+            case .failure(let error):
+                self.presentOKAlertOnMainThread(title: "Something went wrong.", message: error.rawValue, buttonTitle: "Ok")
+            }
+        }
+    }
     
-        
+    func configureUIElements(with movie: Movie) {
+            self.add(childVC: MovieHeaderVC(movie: movie), to: self.headerView)
+            self.add(childVC: MovieOverviewVC(movie: movie), to: self.overviewView)
+        }
+    
     func add(childVC: UIViewController, to containerView: UIView) {
         addChild(childVC)
         containerView.addSubview(childVC.view)

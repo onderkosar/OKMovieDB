@@ -20,6 +20,7 @@ class NetworkManager {
     private init() {}
     
     var movies = [Results]()
+    var casts = [MovieCast]()
     
     func getMovies(for genreId: Int, page:Int, completed: @escaping (Result<[Results], OKError>) -> Void) {
         let endpoint = baseURL + "discover/movie?api_key=\(apiKey)&language=en-US&sort_by=popularity.desc&include_adult=false&page=\(page)&with_genres=\(genreId)"
@@ -92,6 +93,47 @@ class NetworkManager {
                 decoder.keyDecodingStrategy = .convertFromSnakeCase
                 let movie   = try decoder.decode(Movie.self, from: data)
                 completed(.success(movie))
+
+            } catch {
+                completed(.failure(.invalidData))
+            }
+        }
+
+        task.resume()
+    }
+    
+    func getCastInfo(for movieId: Int, completed: @escaping (Result<[MovieCast], OKError>) -> Void) {
+        let endpoint = baseURL + "movie/\(movieId)/credits?api_key=\(apiKey)"
+
+
+        guard let url = URL(string: endpoint) else {
+            completed(.failure(.invalidURL))
+            return
+        }
+
+        let task = URLSession.shared.dataTask(with: url) { data, response, error in
+
+            if let _ = error {
+                completed(.failure(.unableToComplete))
+                return
+            }
+
+            guard let response = response as? HTTPURLResponse, response.statusCode == 200 else {
+                completed(.failure(.invalidResponse))
+                return
+            }
+
+            guard let data = data else {
+                completed(.failure(.invalidData))
+                return
+            }
+
+            do {
+                let decoder = JSONDecoder()
+                decoder.keyDecodingStrategy = .convertFromSnakeCase
+                let cast   = try decoder.decode(Casts.self, from: data)
+                self.casts = cast.cast
+                completed(.success(self.casts))
 
             } catch {
                 completed(.failure(.invalidData))
