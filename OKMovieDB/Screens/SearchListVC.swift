@@ -36,7 +36,7 @@ class SearchListVC: OKDataLoadingVC {
     
     
     func configureCollectionView() {
-        collectionView = UICollectionView(frame: view.bounds, collectionViewLayout: UIHelper.createTwoColumnFlowLayout(in: view))
+        collectionView = UICollectionView(frame: view.bounds, collectionViewLayout: UIHelper.createFlowLayoutFor(columns: 2, in: view))
         view.addSubview(collectionView)
         collectionView.delegate         = self
         collectionView.backgroundColor  = .systemBackground

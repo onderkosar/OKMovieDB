@@ -9,27 +9,27 @@
 import UIKit
 
 enum UIHelper {
-    static func twoColumnWidht(in view: UIView) -> CGFloat {
-        let width                       = view.bounds.width
-        let padding: CGFloat            = 12
-        let minimumItemSpacing: CGFloat = 10
-        let availableWidth              = width - (padding * 2) - (minimumItemSpacing)
-        let itemWidht                   = availableWidth / 2
+    static func itemWidthFor(column numb: CGFloat, in view: UIView) -> CGFloat {
+        let width: CGFloat                  = view.bounds.width
+        let padding: CGFloat                = width / 35
+        let minimumItemSpacing: CGFloat     = width / 25
+        
+        let availableWidth: CGFloat         = width - (padding * numb) - (minimumItemSpacing * (numb - 1))
+        let itemWidht: CGFloat              = availableWidth / numb
         
         return itemWidht
     }
     
-    static func createTwoColumnFlowLayout(in view: UIView) -> UICollectionViewFlowLayout {
-        let width                       = view.bounds.width
-        let padding: CGFloat            = 12
-        let minimumItemSpacing: CGFloat = 10
-        let availableWidth              = width - (padding * 2) - (minimumItemSpacing)
-        let itemWidht                   = availableWidth / 2
-        let itemHeight                  = itemWidht*2/3
+    static func createFlowLayoutFor(columns numb: CGFloat, in view: UIView) -> UICollectionViewFlowLayout {
+        let width: CGFloat                  = view.bounds.width
+        let padding: CGFloat                = width / 35
         
-        let flowLayout                  = UICollectionViewFlowLayout()
-        flowLayout.sectionInset         = UIEdgeInsets(top: padding, left: padding, bottom: padding, right: padding)
-        flowLayout.itemSize             = CGSize(width: itemWidht, height: itemHeight)
+        let itemWidht: CGFloat              = itemWidthFor(column: numb , in: view)
+        let itemHeight: CGFloat             = itemWidht*2/3
+        
+        let flowLayout                      = UICollectionViewFlowLayout()
+        flowLayout.sectionInset             = UIEdgeInsets(top: padding, left: padding, bottom: padding, right: padding)
+        flowLayout.itemSize                 = CGSize(width: itemWidht, height: itemHeight)
         
         return flowLayout
     }
