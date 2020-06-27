@@ -21,6 +21,7 @@ class MovieInfoVC: OKDataLoadingVC {
     
     var movieId : Int!
     
+    var overviewHeight = CGFloat()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -77,10 +78,17 @@ class MovieInfoVC: OKDataLoadingVC {
             headerView.heightAnchor.constraint(equalToConstant: 520),
             
             overviewView.topAnchor.constraint(equalTo: headerView.bottomAnchor, constant: padding),
-            overviewView.heightAnchor.constraint(equalToConstant: 320),
+            overviewView.heightAnchor.constraint(greaterThanOrEqualToConstant: overviewHeight),
             
             castsView.topAnchor.constraint(equalTo: overviewView.bottomAnchor, constant: padding),
             castsView.heightAnchor.constraint(equalToConstant: 260),
+        ])
+       
+    }
+    
+    func modifyOverviewHeight() {
+        NSLayoutConstraint.activate([
+            overviewView.heightAnchor.constraint(equalToConstant: overviewHeight+82),
         ])
     }
     
@@ -123,7 +131,11 @@ class MovieInfoVC: OKDataLoadingVC {
 
             switch result {
             case .success(let movie):
-                DispatchQueue.main.async { self.configureUIElements(with: movie) }
+                DispatchQueue.main.async {
+                    self.overviewHeight = UIHelper.labelHeight(text: movie.overview, font: UIFont.preferredFont(forTextStyle: .body), width: self.overviewView.frame.width-20)
+                    self.modifyOverviewHeight()
+                    self.configureUIElements(with: movie)
+                }
             case .failure(let error):
                 self.presentOKAlertOnMainThread(title: "Something went wrong.", message: error.rawValue, buttonTitle: "Ok")
             }

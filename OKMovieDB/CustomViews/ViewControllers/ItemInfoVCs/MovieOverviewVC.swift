@@ -27,8 +27,8 @@ class MovieOverviewVC: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         configureBackgroundView()
-        configureUI()
         configureElements()
+        configureUI()
     }
     
     private func configureBackgroundView() {
@@ -38,11 +38,15 @@ class MovieOverviewVC: UIViewController {
     
     
     private func configureElements() {
+        titleLabel.numberOfLines    = 0
         titleLabel.text             = "Overview"
-        titleLabel.numberOfLines    = 1
         
-        overviewLabel.numberOfLines = 12
-        overviewLabel.text          = movie.overview
+        overviewLabel.numberOfLines = 0
+        if movie.overview.count != 0 {
+            overviewLabel.text = movie.overview
+        } else {
+            overviewLabel.text = "  N/A"
+        }
     }
     
     private func configureUI() {

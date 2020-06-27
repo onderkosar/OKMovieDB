@@ -82,8 +82,8 @@ class OKAlertVC: UIViewController {
     }
     
     func configureMessageLabel() {
-        messageLabel.text           = message ?? "Unable to complete request"
         messageLabel.numberOfLines  = 4
+        messageLabel.text           = message ?? "Unable to complete request"
         
         NSLayoutConstraint.activate([
             messageLabel.topAnchor.constraint(equalTo: titleLabel.bottomAnchor, constant: 8),

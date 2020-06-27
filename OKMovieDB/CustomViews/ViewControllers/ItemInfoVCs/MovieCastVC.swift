@@ -26,9 +26,9 @@ class MovieCastVC: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        configureElements()
         configureBackgroundView()
         configureUI()
-        configureElements()
     }
     
     private func configureBackgroundView() {
@@ -37,9 +37,10 @@ class MovieCastVC: UIViewController {
     }
     
     private func configureElements() {
+        titleLabel.numberOfLines    = 0
         titleLabel.text             = "Cast"
-        titleLabel.numberOfLines    = 1
         
+        castLabel.numberOfLines = 0
         fillCastLabel()
     }
     
@@ -62,21 +63,20 @@ class MovieCastVC: UIViewController {
     }
     
     func fillCastLabel() {
-        var numbOfLines = Int()
+        var numbOfCasts = Int()
         var castArray   = [String]()
         
         if casts.isEmpty {
-            numbOfLines = 1
+            numbOfCasts = 1
             titleLabel.text = "No cast data available!"
             return
         } else if casts.count >= 10 {
-            numbOfLines = 10
+            numbOfCasts = 10
         } else {
-            numbOfLines = casts.count
+            numbOfCasts = casts.count
         }
         
-        castLabel.numberOfLines = numbOfLines
-        for i in 0...numbOfLines-1 {
+        for i in 0...numbOfCasts-1 {
             castArray.append("- \(casts[i].name) (\(casts[i].character))")
         }
         let castString = castArray.joined(separator: "\n")

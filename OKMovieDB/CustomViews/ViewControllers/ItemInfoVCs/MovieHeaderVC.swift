@@ -39,8 +39,8 @@ class MovieHeaderVC: UIViewController {
         if movie.posterPath != nil { movieImageView.downloadImage(fromURL: movie.posterURL) }
         dateImageView.translatesAutoresizingMaskIntoConstraints = false
         
+        movieTitleLabel.numberOfLines   = 0
         movieTitleLabel.text            = movie.title
-        movieTitleLabel.numberOfLines   = 2
         
         dateImageView.image             = SFSymbols.calendar
         dateImageView.tintColor         = .secondaryLabel
