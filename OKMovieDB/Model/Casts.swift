@@ -16,4 +16,9 @@ struct MovieCast: Codable, Hashable {
     let id: Int
     let character: String
     let name: String
+    let profilePath: String?
+    
+    var profilePathURL: URL {
+        return URL(string: "https://image.tmdb.org/t/p/w500\(profilePath ?? "")")!
+    }
 }

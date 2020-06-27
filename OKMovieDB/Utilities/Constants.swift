@@ -33,4 +33,5 @@ enum SFSymbols {
     static let search       = UIImage(systemName: "magnifyingglass")
     static let star         = UIImage(systemName: "star")
     static let starFilled   = UIImage(systemName: "star.fill")
+    static let person       = UIImage(systemName: "person.crop.square")
 }

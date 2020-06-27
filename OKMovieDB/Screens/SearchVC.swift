@@ -33,7 +33,7 @@ class SearchVC: UIViewController {
         view.addGestureRecognizer(tap)
     }
     
-    @objc func pushMovieListVC() {
+    @objc func searchButtonPressed() {
         
         guard isMovieNameEntered else {
             presentOKAlertOnMainThread(title: "Textfield is empty", message: "Please type to search. We need to know which to look for\n😃", buttonTitle: "Ok")
@@ -60,7 +60,7 @@ class SearchVC: UIViewController {
     
     func configureSearchButton() {
         view.addSubview(searchButton)
-        searchButton.addTarget(self, action: #selector(pushMovieListVC), for: .touchUpInside)
+        searchButton.addTarget(self, action: #selector(searchButtonPressed), for: .touchUpInside)
         NSLayoutConstraint.activate([
             searchButton.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: -padding),
             searchButton.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: padding),
@@ -72,7 +72,7 @@ class SearchVC: UIViewController {
 
 extension SearchVC: UITextFieldDelegate {
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
-        pushMovieListVC()
+        searchButtonPressed()
         
         return true
     }

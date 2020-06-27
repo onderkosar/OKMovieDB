@@ -8,10 +8,10 @@
 
 import UIKit
 
-class MovieCastVC: UIViewController {
+class MovieCastVC: OKDataLoadingVC {
     
-    let titleLabel      = OKTitleLabel(textAlignment: .left, fontSize: 20)
-    let castLabel       = OKBodyLabel(textAlignment: .left)
+    let castsButton     = OKButton(backgroundColor: .systemGray3, title: "Casts")
+    let videosButton    = OKButton(backgroundColor: .systemGray3, title: "Trailers")
     
     var casts: [MovieCast]!
 
@@ -37,50 +37,43 @@ class MovieCastVC: UIViewController {
     }
     
     private func configureElements() {
-        titleLabel.numberOfLines    = 0
-        titleLabel.text             = "Cast"
-        
-        castLabel.numberOfLines = 0
-        fillCastLabel()
+        castsButton.addTarget(self, action: #selector(castsButtonPressed), for: .touchUpInside)
+        videosButton.addTarget(self, action: #selector(videosButtonPressed), for: .touchUpInside)
     }
     
     private func configureUI() {
-        view.addSubviews(titleLabel, castLabel)
+        view.addSubviews(castsButton, videosButton)
         
-        let padding: CGFloat = 20
+        let padding: CGFloat = 10
+        let itemWidth: CGFloat = (view.bounds.width / 2) - (padding * 2.5)
         
         NSLayoutConstraint.activate([
-            titleLabel.topAnchor.constraint(equalTo: view.topAnchor, constant: padding),
-            titleLabel.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: padding),
-            titleLabel.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -padding),
-            titleLabel.heightAnchor.constraint(equalToConstant: 22),
+            castsButton.topAnchor.constraint(equalTo: view.topAnchor, constant: padding),
+            castsButton.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: padding),
+            castsButton.widthAnchor.constraint(equalToConstant: itemWidth),
+            castsButton.heightAnchor.constraint(equalToConstant: 30),
             
-            castLabel.topAnchor.constraint(equalTo: titleLabel.bottomAnchor, constant: padding),
-            castLabel.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: padding/4),
-            castLabel.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -padding/4),
-            castLabel.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -padding)
+            videosButton.topAnchor.constraint(equalTo: view.topAnchor, constant: padding),
+            videosButton.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -padding),
+            videosButton.widthAnchor.constraint(equalToConstant: itemWidth),
+            videosButton.heightAnchor.constraint(equalToConstant: 30)
         ])
     }
     
-    func fillCastLabel() {
-        var numbOfCasts = Int()
-        var castArray   = [String]()
-        
-        if casts.isEmpty {
-            numbOfCasts = 1
-            titleLabel.text = "No cast data available!"
+    
+    @objc func castsButtonPressed() {
+        if casts.count == 0 {
+            presentOKAlertOnMainThread(title: "N/A", message: "No cast info available for this movie.", buttonTitle: "Ok")
             return
-        } else if casts.count >= 10 {
-            numbOfCasts = 10
-        } else {
-            numbOfCasts = casts.count
         }
         
-        for i in 0...numbOfCasts-1 {
-            castArray.append("- \(casts[i].name) (\(casts[i].character))")
-        }
-        let castString = castArray.joined(separator: "\n")
-        castLabel.text = castString
+        let castsTableVC    = CastListVC()
+        castsTableVC.casts  = casts
         
+        navigationController?.pushViewController(castsTableVC, animated: true)
+    }
+    
+    @objc func videosButtonPressed() {
+        print("Trailers")
     }
 }

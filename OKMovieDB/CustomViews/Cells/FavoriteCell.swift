@@ -30,20 +30,17 @@ class FavoriteCell: UITableViewCell {
     
     func set(favorite: Results) {
         movieTitleLabel.text = favorite.title
-        if favorite.backdropPath != nil {
-            movieImageView.downloadImage(fromURL: favorite.backdropURL)
-            
-        }
+        if favorite.backdropPath != nil { movieImageView.downloadImage(fromURL: favorite.backdropURL) }
     }
     
     private func configure() {
         addSubviews(movieImageView, movieTitleLabel)
         
         let padding: CGFloat        = 10
-        let contenHeight: CGFloat   = contentView.frame.height
+        let contentHeight: CGFloat  = contentView.frame.height
         let contentWidth: CGFloat   = contentView.frame.width
         
-        let imageHeight: CGFloat    = contenHeight+16
+        let imageHeight: CGFloat    = contentHeight+16
         let labelHeight: CGFloat    = (movieTitleLabel.font.pointSize * 2) + 2
         let labelWidth: CGFloat     = contentWidth-(imageHeight+padding)
         

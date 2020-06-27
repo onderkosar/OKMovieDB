@@ -15,7 +15,7 @@ class MovieInfoVC: OKDataLoadingVC {
     
     let headerView      = UIView()
     let overviewView    = UIView()
-    let castsView       = UIView()
+    let buttonsView     = UIView()
     
     var itemViews: [UIView] = []
     
@@ -54,14 +54,14 @@ class MovieInfoVC: OKDataLoadingVC {
         
         NSLayoutConstraint.activate([
             contentView.widthAnchor.constraint(equalTo: scrollView.widthAnchor),
-            contentView.heightAnchor.constraint(equalToConstant: 1200)
+            contentView.heightAnchor.constraint(equalToConstant: 1000)
         ])
     }
     
     func layoutUI() {
         let padding: CGFloat    = 10
         
-        itemViews = [headerView, overviewView, castsView]
+        itemViews = [headerView, overviewView, buttonsView]
         
         for itemView in itemViews {
             contentView.addSubview(itemView)
@@ -80,8 +80,8 @@ class MovieInfoVC: OKDataLoadingVC {
             overviewView.topAnchor.constraint(equalTo: headerView.bottomAnchor, constant: padding),
             overviewView.heightAnchor.constraint(greaterThanOrEqualToConstant: overviewHeight),
             
-            castsView.topAnchor.constraint(equalTo: overviewView.bottomAnchor, constant: padding),
-            castsView.heightAnchor.constraint(equalToConstant: 260),
+            buttonsView.topAnchor.constraint(equalTo: overviewView.bottomAnchor, constant: padding),
+            buttonsView.heightAnchor.constraint(equalToConstant: 50),
         ])
        
     }
@@ -148,7 +148,7 @@ class MovieInfoVC: OKDataLoadingVC {
 
             switch result {
             case .success(let casts):
-                DispatchQueue.main.async { self.add(childVC: MovieCastVC(cast: casts), to: self.castsView) }
+                DispatchQueue.main.async { self.add(childVC: MovieCastVC(cast: casts), to: self.buttonsView) }
             case .failure(let error):
                 self.presentOKAlertOnMainThread(title: "Something went wrong.", message: error.rawValue, buttonTitle: "Ok")
             }
