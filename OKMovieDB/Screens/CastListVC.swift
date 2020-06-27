@@ -10,7 +10,7 @@ import UIKit
 
 class CastListVC: UIViewController {
     let tableView           = UITableView()
-    var casts: [MovieCast]  = []
+    var cast: [MovieCast]   = []
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -21,7 +21,7 @@ class CastListVC: UIViewController {
     
     func configureViewController() {
         view.backgroundColor = .systemBackground
-        title = "Casts"
+        title = "Cast"
     }
     
     func configureTableView() {
@@ -39,15 +39,15 @@ class CastListVC: UIViewController {
 extension CastListVC: UITableViewDataSource, UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return casts.count
+        return cast.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: CastCell.reuseID) as! CastCell
-        let cast = casts[indexPath.row]
+        let cell        = tableView.dequeueReusableCell(withIdentifier: CastCell.reuseID) as! CastCell
+        let castList    = cast[indexPath.row]
         
         cell.selectionStyle = .none
-        cell.set(cast: cast)
+        cell.set(cast: castList)
         
         return cell
     }

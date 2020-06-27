@@ -40,11 +40,11 @@ class SearchVC: UIViewController {
             return
         }
         
-        let searchListVC    = SearchListVC()
-        searchListVC.query  = searchTextField.text!.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed)
-        searchListVC.page   = 1
+        let destVC    = SearchListVC()
+        destVC.query  = searchTextField.text!.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed)
+        destVC.page   = 1
         
-        navigationController?.pushViewController(searchListVC, animated: true)
+        navigationController?.pushViewController(destVC, animated: true)
     }
     
     func configureSearchTextField() {

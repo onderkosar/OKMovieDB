@@ -19,8 +19,8 @@ class NetworkManager {
     
     private init() {}
     
-    var movies = [Results]()
-    var casts = [MovieCast]()
+    var movies  = [Results]()
+    var cast    = [MovieCast]()
     
     func getMovies(for genreId: Int, page:Int, completed: @escaping (Result<[Results], OKError>) -> Void) {
         let endpoint = baseURL + "discover/movie?api_key=\(apiKey)&language=en-US&sort_by=popularity.desc&include_adult=false&page=\(page)&with_genres=\(genreId)"
@@ -131,9 +131,9 @@ class NetworkManager {
             do {
                 let decoder = JSONDecoder()
                 decoder.keyDecodingStrategy = .convertFromSnakeCase
-                let cast   = try decoder.decode(Casts.self, from: data)
-                self.casts = cast.cast
-                completed(.success(self.casts))
+                let cast    = try decoder.decode(Cast.self, from: data)
+                self.cast   = cast.cast
+                completed(.success(self.cast))
 
             } catch {
                 completed(.failure(.invalidData))

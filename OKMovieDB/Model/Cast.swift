@@ -1,14 +1,14 @@
 //
-//  Casts.swift
+//  Cast.swift
 //  OKMovieDB
 //
-//  Created by Önder Koşar on 17.06.2020.
+//  Created by Önder Koşar on 27.06.2020.
 //  Copyright © 2020 Önder Koşar. All rights reserved.
 //
 
 import Foundation
 
-struct Casts: Codable, Hashable {
+struct Cast: Codable, Hashable {
     var cast: [MovieCast]
 }
 

@@ -66,22 +66,23 @@ class MovieInfoVC: OKDataLoadingVC {
         for itemView in itemViews {
             contentView.addSubview(itemView)
             itemView.translatesAutoresizingMaskIntoConstraints = false
-            
-            NSLayoutConstraint.activate([
-                itemView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: padding),
-                itemView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -padding)
-            ])
         }
         
         NSLayoutConstraint.activate([
             headerView.topAnchor.constraint(equalTo: contentView.topAnchor),
+            headerView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: padding),
+            headerView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -padding),
             headerView.heightAnchor.constraint(equalToConstant: 520),
             
             overviewView.topAnchor.constraint(equalTo: headerView.bottomAnchor, constant: padding),
+            overviewView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: padding),
+            overviewView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -padding),
             overviewView.heightAnchor.constraint(greaterThanOrEqualToConstant: overviewHeight),
             
-            buttonsView.topAnchor.constraint(equalTo: overviewView.bottomAnchor, constant: padding),
-            buttonsView.heightAnchor.constraint(equalToConstant: 50),
+            buttonsView.topAnchor.constraint(equalTo: contentView.topAnchor, constant: padding),
+            buttonsView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -padding),
+            buttonsView.widthAnchor.constraint(equalToConstant: 30),
+            buttonsView.heightAnchor.constraint(equalToConstant: 90),
         ])
        
     }
@@ -147,8 +148,8 @@ class MovieInfoVC: OKDataLoadingVC {
             guard let self = self else { return }
 
             switch result {
-            case .success(let casts):
-                DispatchQueue.main.async { self.add(childVC: MovieCastVC(cast: casts), to: self.buttonsView) }
+            case .success(let cast):
+                DispatchQueue.main.async { self.add(childVC: MovieSideBtnVC(cast: cast), to: self.buttonsView) }
             case .failure(let error):
                 self.presentOKAlertOnMainThread(title: "Something went wrong.", message: error.rawValue, buttonTitle: "Ok")
             }
