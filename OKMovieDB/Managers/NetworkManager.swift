@@ -20,7 +20,7 @@ class NetworkManager {
     private init() {}
     
     var movies  = [Results]()
-    var cast    = [MovieCast]()
+    var cast    = [CastResults]()
     
     func getMovies(for genreId: Int, page:Int, completed: @escaping (Result<[Results], OKError>) -> Void) {
         let endpoint = baseURL + "discover/movie?api_key=\(apiKey)&language=en-US&sort_by=popularity.desc&include_adult=false&page=\(page)&with_genres=\(genreId)"
@@ -102,7 +102,7 @@ class NetworkManager {
         task.resume()
     }
     
-    func getCastInfo(for movieId: Int, completed: @escaping (Result<[MovieCast], OKError>) -> Void) {
+    func getCastInfo(for movieId: Int, completed: @escaping (Result<[CastResults], OKError>) -> Void) {
         let endpoint = baseURL + "movie/\(movieId)/credits?api_key=\(apiKey)"
 
 

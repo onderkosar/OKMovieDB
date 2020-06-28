@@ -20,14 +20,15 @@ class MovieInfoVC: OKDataLoadingVC {
     var movieId         = Int()
     var overviewHeight  = CGFloat()
     
+    var okcast: [CastResults]         = []
+    var oktrailers: [TrailerResults]  = []
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         configureViewController()
         configureScrollView()
         layoutUI()
-        getMovieInfo()
-        getCastInfo()
-        getMovieTrailers()
+        networkCalls()
     }
     
     func configureViewController() {
@@ -122,6 +123,12 @@ class MovieInfoVC: OKDataLoadingVC {
         }
     }
     
+    func networkCalls() {
+        getMovieCast()
+        getMovieTrailers()
+        getMovieInfo()
+    }
+    
     func getMovieInfo() {
         NetworkManager.shared.getMovieInfo(for: movieId) { [weak self] result in
             guard let self = self else { return }
@@ -145,20 +152,20 @@ class MovieInfoVC: OKDataLoadingVC {
 
             switch result {
             case .success(let trailers):
-                DispatchQueue.main.async { self.add(childVC: MovieSideBtnVC(trailers: trailers), to: self.buttonsView) }
+                DispatchQueue.main.async { self.oktrailers = trailers }
             case .failure(let error):
                 self.presentOKAlertOnMainThread(title: "Something went wrong.", message: error.rawValue, buttonTitle: "Ok")
             }
         }
     }
     
-    func getCastInfo() {
+    func getMovieCast() {
         NetworkManager.shared.getCastInfo(for: movieId) { [weak self] result in
             guard let self = self else { return }
 
             switch result {
             case .success(let cast):
-                DispatchQueue.main.async { self.add(childVC: MovieSideBtnVC(cast: cast), to: self.buttonsView) }
+                DispatchQueue.main.async { self.okcast = cast }
             case .failure(let error):
                 self.presentOKAlertOnMainThread(title: "Something went wrong.", message: error.rawValue, buttonTitle: "Ok")
             }
@@ -166,9 +173,10 @@ class MovieInfoVC: OKDataLoadingVC {
     }
     
     func configureUIElements(with movie: Movie) {
-            self.add(childVC: MovieHeaderVC(movie: movie), to: self.headerView)
-            self.add(childVC: MovieOverviewVC(movie: movie), to: self.overviewView)
-        }
+        self.add(childVC: MovieHeaderVC(movie: movie), to: self.headerView)
+        self.add(childVC: MovieOverviewVC(movie: movie), to: self.overviewView)
+        self.add(childVC: MovieSideBtnVC(cast: okcast, trailers: oktrailers), to: self.buttonsView)
+    }
     
     func add(childVC: UIViewController, to containerView: UIView) {
         addChild(childVC)

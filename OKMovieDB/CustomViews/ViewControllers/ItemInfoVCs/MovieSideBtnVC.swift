@@ -13,12 +13,13 @@ class MovieSideBtnVC: UIViewController {
     let castButton      = OKButton(backgroundColor: .clear, title: "")
     let videosButton    = OKButton(backgroundColor: .clear, title: "")
     
-    var cast: [MovieCast]!
+    var cast: [CastResults]!
     var trailers: [TrailerResults]!
     
-    init(cast: [MovieCast]) {
+    init(cast: [CastResults], trailers: [TrailerResults]) {
         super.init(nibName: nil, bundle: nil)
-        self.cast = cast
+        self.cast       = cast
+        self.trailers   = trailers
     }
     
     init(trailers: [TrailerResults]) {

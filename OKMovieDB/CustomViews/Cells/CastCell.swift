@@ -33,7 +33,7 @@ class CastCell: UITableViewCell {
     }
     
     
-    func set(cast: MovieCast) {
+    func set(cast: CastResults) {
         nameLabel.text          = cast.name
         characterLabel.text     = cast.character
         

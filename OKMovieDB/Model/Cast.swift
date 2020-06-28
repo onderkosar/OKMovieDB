@@ -9,10 +9,10 @@
 import Foundation
 
 struct Cast: Codable, Hashable {
-    var cast: [MovieCast]
+    var cast: [CastResults]
 }
 
-struct MovieCast: Codable, Hashable {
+struct CastResults: Codable, Hashable {
     let id: Int
     let character: String
     let name: String

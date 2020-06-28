@@ -9,8 +9,8 @@
 import UIKit
 
 class CastListVC: UIViewController {
-    let tableView           = UITableView()
-    var cast: [MovieCast]   = []
+    let tableView               = UITableView()
+    var cast: [CastResults]     = []
 
     override func viewDidLoad() {
         super.viewDidLoad()
