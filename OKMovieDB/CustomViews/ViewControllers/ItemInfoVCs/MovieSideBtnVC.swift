@@ -14,10 +14,16 @@ class MovieSideBtnVC: UIViewController {
     let videosButton    = OKButton(backgroundColor: .clear, title: "")
     
     var cast: [MovieCast]!
+    var trailers: [TrailerResults]!
     
     init(cast: [MovieCast]) {
         super.init(nibName: nil, bundle: nil)
         self.cast = cast
+    }
+    
+    init(trailers: [TrailerResults]) {
+        super.init(nibName: nil, bundle: nil)
+        self.trailers = trailers
     }
     
     required init?(coder: NSCoder) {
@@ -73,6 +79,11 @@ class MovieSideBtnVC: UIViewController {
     }
     
     @objc func videosButtonPressed() {
-        print("Trailers")
+        if trailers.count == 0 {
+            presentOKAlertOnMainThread(title: "N/A", message: "No trailer available for this movie.", buttonTitle: "Ok")
+            return
+        }
+        
+        presentSafariVC(with: trailers[0].trailerURL)
     }
 }

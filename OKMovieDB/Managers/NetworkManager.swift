@@ -143,6 +143,44 @@ class NetworkManager {
         task.resume()
     }
     
+    func getMovieTrailers(for movieId: Int, completed: @escaping (Result<[TrailerResults], OKError>) -> Void) {
+        let endpoint = baseURL + "movie/\(movieId)/videos?api_key=\(apiKey)&language=en-US"
+        
+        guard let url = URL(string: endpoint) else {
+            completed(.failure(.invalidURL))
+            return
+        }
+        
+        let task = URLSession.shared.dataTask(with: url) { data, response, error in
+            
+            if let _ = error {
+                completed(.failure(.unableToComplete))
+                return
+            }
+            
+            guard let response = response as? HTTPURLResponse, response.statusCode == 200 else {
+                completed(.failure(.invalidResponse))
+                return
+            }
+            
+            guard let data = data else {
+                completed(.failure(.invalidData))
+                return
+            }
+            
+            do {
+                let decoder = JSONDecoder()
+                decoder.keyDecodingStrategy = .convertFromSnakeCase
+                let trailer   = try decoder.decode(Trailers.self, from: data)
+                completed(.success(trailer.results))
+            } catch {
+                completed(.failure(.invalidData))
+            }
+        }
+        
+        task.resume()
+    }
+    
     func downloadImage(from urlString: String, completed: @escaping(UIImage?) -> Void) {
         // Önceden indirilmiş fotoğrafları scroll yaptığımızda yeniden yüklememek için cache içerisinde tutmalıyız...
         let cacheKey = NSString(string: urlString)

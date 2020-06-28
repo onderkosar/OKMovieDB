@@ -16,12 +16,9 @@ class MovieInfoVC: OKDataLoadingVC {
     let headerView      = UIView()
     let overviewView    = UIView()
     let buttonsView     = UIView()
-    
-    var itemViews: [UIView] = []
-    
-    var movieId : Int!
-    
-    var overviewHeight = CGFloat()
+
+    var movieId         = Int()
+    var overviewHeight  = CGFloat()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -30,6 +27,7 @@ class MovieInfoVC: OKDataLoadingVC {
         layoutUI()
         getMovieInfo()
         getCastInfo()
+        getMovieTrailers()
     }
     
     func configureViewController() {
@@ -54,19 +52,13 @@ class MovieInfoVC: OKDataLoadingVC {
         
         NSLayoutConstraint.activate([
             contentView.widthAnchor.constraint(equalTo: scrollView.widthAnchor),
-            contentView.heightAnchor.constraint(equalToConstant: 1000)
+            contentView.heightAnchor.constraint(greaterThanOrEqualToConstant: 500)
         ])
     }
     
     func layoutUI() {
+        contentView.addSubviews(headerView, overviewView, buttonsView)
         let padding: CGFloat    = 10
-        
-        itemViews = [headerView, overviewView, buttonsView]
-        
-        for itemView in itemViews {
-            contentView.addSubview(itemView)
-            itemView.translatesAutoresizingMaskIntoConstraints = false
-        }
         
         NSLayoutConstraint.activate([
             headerView.topAnchor.constraint(equalTo: contentView.topAnchor),
@@ -87,9 +79,13 @@ class MovieInfoVC: OKDataLoadingVC {
        
     }
     
-    func modifyOverviewHeight() {
+    func modifyViewsHeight() {
+        let headerviewHeight: CGFloat       = headerView.bounds.height
+        let overviewTotalHeight: CGFloat    = overviewHeight + 82
+        
         NSLayoutConstraint.activate([
-            overviewView.heightAnchor.constraint(equalToConstant: overviewHeight+82),
+            contentView.heightAnchor.constraint(equalToConstant: headerviewHeight + overviewTotalHeight),
+            overviewView.heightAnchor.constraint(equalToConstant: overviewTotalHeight),
         ])
     }
     
@@ -134,9 +130,22 @@ class MovieInfoVC: OKDataLoadingVC {
             case .success(let movie):
                 DispatchQueue.main.async {
                     self.overviewHeight = UIHelper.labelHeight(text: movie.overview, font: UIFont.preferredFont(forTextStyle: .body), width: self.overviewView.frame.width-20)
-                    self.modifyOverviewHeight()
+                    self.modifyViewsHeight()
                     self.configureUIElements(with: movie)
                 }
+            case .failure(let error):
+                self.presentOKAlertOnMainThread(title: "Something went wrong.", message: error.rawValue, buttonTitle: "Ok")
+            }
+        }
+    }
+    
+    func getMovieTrailers() {
+        NetworkManager.shared.getMovieTrailers(for: movieId) { [weak self] result in
+            guard let self = self else { return }
+
+            switch result {
+            case .success(let trailers):
+                DispatchQueue.main.async { self.add(childVC: MovieSideBtnVC(trailers: trailers), to: self.buttonsView) }
             case .failure(let error):
                 self.presentOKAlertOnMainThread(title: "Something went wrong.", message: error.rawValue, buttonTitle: "Ok")
             }
