@@ -20,8 +20,12 @@ class MovieInfoVC: OKDataLoadingVC {
     var movieId         = Int()
     var overviewHeight  = CGFloat()
     
+    var favBtnImg       = SFSymbols.star
+    var favorites       = [Results]()
+    
     var okcast: [CastResults]         = []
     var oktrailers: [TrailerResults]  = []
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -33,9 +37,10 @@ class MovieInfoVC: OKDataLoadingVC {
     
     func configureViewController() {
         view.backgroundColor                = .systemBackground
+        checkFavorite()
         
         let doneButton                      = UIBarButtonItem(barButtonSystemItem: .done, target: self, action: #selector(dismissVC))
-        let favButton                       = UIBarButtonItem(image: SFSymbols.starFilled, style: .done, target: self, action: #selector(addFavorites))
+        let favButton                       = UIBarButtonItem(image: favBtnImg, style: .done, target: self, action: #selector(addFavorites))
         
         doneButton.tintColor                = .systemOrange
         favButton.tintColor                 = .systemOrange
@@ -65,7 +70,7 @@ class MovieInfoVC: OKDataLoadingVC {
             headerView.topAnchor.constraint(equalTo: contentView.topAnchor),
             headerView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: padding),
             headerView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -padding),
-            headerView.heightAnchor.constraint(equalToConstant: 520),
+            headerView.heightAnchor.constraint(equalToConstant: 550),
             
             overviewView.topAnchor.constraint(equalTo: headerView.bottomAnchor, constant: padding),
             overviewView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: padding),
@@ -120,6 +125,22 @@ class MovieInfoVC: OKDataLoadingVC {
                 return
             }
             self.presentOKAlertOnMainThread(title: "Something went wrong", message: error.rawValue, buttonTitle: "Ok")
+        }
+    }
+    
+    func checkFavorite() {
+        PersistenceManager.retrieveFavorites { [weak self] result in
+            guard let self = self else { return }
+            
+            switch result {
+            case .success(let favorites):
+                self.favorites.append(contentsOf: favorites)
+                if self.favorites.contains(where: {$0.id == self.movieId}) {
+                    self.favBtnImg = SFSymbols.starFilled
+                }
+            case.failure(let error):
+                self.presentOKAlertOnMainThread(title: "Something went wrong", message: error.rawValue, buttonTitle: "Ok")
+            }
         }
     }
     
