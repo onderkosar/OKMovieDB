@@ -1,7 +1,7 @@
 # OKMovieDB
 
-![Readme001](https://user-images.githubusercontent.com/36846931/85957591-50803080-b997-11ea-8302-85a95309299f.png)
-![Readme002](https://user-images.githubusercontent.com/36846931/85957592-52e28a80-b997-11ea-85fe-075261967587.png)
+![Readme001](https://user-images.githubusercontent.com/36846931/86009022-553df680-ba22-11ea-85da-8d5a462189cd.png)
+![Readme002](https://user-images.githubusercontent.com/36846931/86009045-5bcc6e00-ba22-11ea-9d06-91e32134c6e3.png)
 
 #### A sample movie app, built to practice Swift skills. Project is all about 3 main screens;
 - Genres: A collection view that users can walk through movies, sorted by popularity for each genres.
