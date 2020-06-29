@@ -27,6 +27,8 @@ let genreDict   = [["title": "Horror", "id": 27],
 
 enum Images {
     static let moviePlaceholder = UIImage(named: "noimagetop")
+    static let castBtnImg       = UIImage(named: "castLogo")
+    static let playBtnImg       = UIImage(named: "playLogo")
 }
 
 enum SFSymbols {

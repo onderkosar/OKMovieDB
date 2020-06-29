@@ -9,6 +9,10 @@
 import UIKit
 import SafariServices
 
+class OrientationManager {
+    static var landscapeSupported: Bool = false
+}
+
 extension UIViewController {
     
     func presentOKAlertOnMainThread(title: String, message: String, buttonTitle: String) {
@@ -23,6 +27,7 @@ extension UIViewController {
     func presentSafariVC(with url: URL) {
         let safariVC = SFSafariViewController(url: url)
         safariVC.preferredControlTintColor = .systemOrange
+        OrientationManager.landscapeSupported = true
         present(safariVC, animated: true)
     } 
 }

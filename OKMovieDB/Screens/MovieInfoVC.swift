@@ -35,6 +35,10 @@ class MovieInfoVC: OKDataLoadingVC {
         networkCalls()
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        OrientationManager.landscapeSupported = false
+    }
+    
     func configureViewController() {
         view.backgroundColor                = .systemBackground
         checkFavorite()
@@ -77,10 +81,10 @@ class MovieInfoVC: OKDataLoadingVC {
             overviewView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -padding),
             overviewView.heightAnchor.constraint(greaterThanOrEqualToConstant: overviewHeight),
             
-            buttonsView.topAnchor.constraint(equalTo: contentView.topAnchor, constant: padding),
+            buttonsView.topAnchor.constraint(equalTo: contentView.topAnchor, constant: padding * 2),
             buttonsView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -padding),
-            buttonsView.widthAnchor.constraint(equalToConstant: 30),
-            buttonsView.heightAnchor.constraint(equalToConstant: 90),
+            buttonsView.widthAnchor.constraint(equalToConstant: 40),
+            buttonsView.heightAnchor.constraint(equalToConstant: 110),
         ])
        
     }

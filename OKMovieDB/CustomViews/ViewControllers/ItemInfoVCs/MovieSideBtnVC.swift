@@ -39,10 +39,10 @@ class MovieSideBtnVC: UIViewController {
     
     
     private func configureElements() {
-        castButton.setImage(SFSymbols.cast, for: .normal)
+        castButton.setImage(Images.castBtnImg, for: .normal)
         castButton.tintColor = .systemOrange
         
-        videosButton.setImage(SFSymbols.video, for: .normal)
+        videosButton.setImage(Images.playBtnImg, for: .normal)
         videosButton.tintColor = .systemOrange
         
         castButton.addTarget(self, action: #selector(castButtonPressed), for: .touchUpInside)
@@ -57,10 +57,10 @@ class MovieSideBtnVC: UIViewController {
         NSLayoutConstraint.activate([
             castButton.topAnchor.constraint(equalTo: view.topAnchor, constant: padding),
             castButton.centerXAnchor.constraint(equalTo: view.centerXAnchor),
-            castButton.widthAnchor.constraint(equalToConstant: 30),
-            castButton.heightAnchor.constraint(equalToConstant: 30),
+            castButton.widthAnchor.constraint(equalToConstant: 40),
+            castButton.heightAnchor.constraint(equalToConstant: 40),
             
-            videosButton.topAnchor.constraint(equalTo: castButton.bottomAnchor, constant: padding),
+            videosButton.topAnchor.constraint(equalTo: castButton.bottomAnchor, constant: padding * 2),
             videosButton.centerXAnchor.constraint(equalTo: view.centerXAnchor),
             videosButton.widthAnchor.constraint(equalToConstant: 30),
             videosButton.heightAnchor.constraint(equalToConstant: 30),

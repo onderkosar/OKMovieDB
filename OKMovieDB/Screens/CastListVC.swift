@@ -20,8 +20,9 @@ class CastListVC: UIViewController {
     
     
     func configureViewController() {
-        view.backgroundColor = .systemBackground
-        title = "Cast"
+        navigationController?.navigationBar.tintColor   = .systemOrange
+        view.backgroundColor                            = .systemBackground
+        title                                           = "Cast"
     }
     
     func configureTableView() {
