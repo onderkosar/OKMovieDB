@@ -61,7 +61,7 @@ class CastCell: UITableViewCell {
             characterLabel.topAnchor.constraint(equalTo: nameLabel.bottomAnchor),
             characterLabel.leadingAnchor.constraint(equalTo: castImageView.trailingAnchor, constant: padding),
             characterLabel.trailingAnchor.constraint(equalTo: contentView.trailingAnchor),
-            characterLabel.heightAnchor.constraint(equalToConstant: contentHeight/2),
+            characterLabel.heightAnchor.constraint(equalToConstant: contentHeight/2)
         ])
     }
 

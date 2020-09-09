@@ -89,7 +89,7 @@ class MovieHeaderVC: UIViewController {
             voteCountLabel.centerYAnchor.constraint(equalTo: voteStarsLabel.centerYAnchor),
             voteCountLabel.leadingAnchor.constraint(equalTo: voteStarsLabel.trailingAnchor),
             voteCountLabel.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -padding),
-            voteCountLabel.heightAnchor.constraint(equalToConstant: 15),
+            voteCountLabel.heightAnchor.constraint(equalToConstant: 15)
         ])
     }
     

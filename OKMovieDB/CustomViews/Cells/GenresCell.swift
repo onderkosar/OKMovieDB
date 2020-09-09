@@ -78,17 +78,14 @@ class GenresCell: UICollectionViewCell {
     }
     
     func getMovies(for genreId: Int, page: Int) {
+        let urlStr = "discover/movie?api_key=\(apiKey)&language=en-US&sort_by=popularity.desc&include_adult=false&page=\(page)&with_genres=\(genreId)"
+        
         isLoadingMoreMovies = true
         
-        NetworkManager.shared.getMovies(for: genreId, page: page) { [weak self] result in
+        NetworkManager.shared.fetch(restURL: urlStr) { [weak self] (movies: Movies) in
             guard let self = self else { return }
             
-            switch result {
-            case.success(let movies):
-                self.updateUI(with: movies)
-            case.failure(let error):
-                print(error)
-            }
+            self.updateUI(with: movies.results)
             self.isLoadingMoreMovies = false
         }
     }

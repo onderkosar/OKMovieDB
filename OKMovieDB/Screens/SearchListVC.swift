@@ -52,18 +52,16 @@ class SearchListVC: OKDataLoadingVC {
     }
     
     func searchMovies(for query: String, page: Int) {
+        let urlStr = "search/movie?api_key=\(apiKey)&language=en-US&query=\(query)&page=1&include_adult=false"
+        
         showLoadingView()
         isLoadingMoreMovies = true
-        NetworkManager.shared.searchMovie(for: query, page: page) { [weak self] result in
+        
+        NetworkManager.shared.fetch(restURL: urlStr) { [weak self] (movies: Movies) in
             guard let self = self else { return }
-            self.dismissLoadingView()
             
-            switch result {
-            case.success(let movies):
-                self.updateUI(with: movies)
-            case.failure(let error):
-                self.presentOKAlertOnMainThread(title: "Something went wrong.", message: error.rawValue, buttonTitle: "Ok")
-            }
+            self.dismissLoadingView()
+            self.updateUI(with: movies.results)
             self.isLoadingMoreMovies = false
         }
     }
@@ -125,7 +123,7 @@ extension SearchListVC: UICollectionViewDelegate {
         destVC.movieId      = movies.id
         
         let navController   = UINavigationController(rootViewController: destVC)
-        present(navController, animated: true)
+        self.present(navController, animated: true)
     }
 }
 

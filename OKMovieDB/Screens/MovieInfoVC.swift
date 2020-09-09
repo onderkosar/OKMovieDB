@@ -84,7 +84,7 @@ class MovieInfoVC: OKDataLoadingVC {
             buttonsView.topAnchor.constraint(equalTo: contentView.topAnchor, constant: padding * 2),
             buttonsView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -padding),
             buttonsView.widthAnchor.constraint(equalToConstant: 40),
-            buttonsView.heightAnchor.constraint(equalToConstant: 110),
+            buttonsView.heightAnchor.constraint(equalToConstant: 110)
         ])
        
     }
@@ -95,7 +95,7 @@ class MovieInfoVC: OKDataLoadingVC {
         
         NSLayoutConstraint.activate([
             contentView.heightAnchor.constraint(equalToConstant: headerviewHeight + overviewTotalHeight),
-            overviewView.heightAnchor.constraint(equalToConstant: overviewTotalHeight),
+            overviewView.heightAnchor.constraint(equalToConstant: overviewTotalHeight)
         ])
     }
     
@@ -105,18 +105,15 @@ class MovieInfoVC: OKDataLoadingVC {
     }
     
     @objc func addFavorites() {
+        let urlStr = "movie/\(movieId)?api_key=\(apiKey)&language=en-US"
+        
         showLoadingView()
         
-        NetworkManager.shared.getMovieInfo(for: movieId) { [weak self] result in
+        NetworkManager.shared.fetch(restURL: urlStr) { [weak self] (movie: Movie) in
             guard let self = self else { return }
-            self.dismissLoadingView()
             
-            switch result {
-            case .success(let movie):
-                self.addMovieToFavorites(movie: movie)
-            case .failure(let error):
-                self.presentOKAlertOnMainThread(title: "Something went wrong", message: error.rawValue, buttonTitle: "Ok")
-            }
+            self.dismissLoadingView()
+            self.addMovieToFavorites(movie: movie)
         }
     }
     
@@ -155,45 +152,36 @@ class MovieInfoVC: OKDataLoadingVC {
     }
     
     func getMovieInfo() {
-        NetworkManager.shared.getMovieInfo(for: movieId) { [weak self] result in
+        let urlStr = "movie/\(movieId)?api_key=\(apiKey)&language=en-US"
+        
+        NetworkManager.shared.fetch(restURL: urlStr) { [weak self] (movie: Movie) in
             guard let self = self else { return }
-
-            switch result {
-            case .success(let movie):
-                DispatchQueue.main.async {
-                    self.overviewHeight = UIHelper.labelHeight(text: movie.overview, font: UIFont.preferredFont(forTextStyle: .body), width: self.overviewView.frame.width-20)
-                    self.modifyViewsHeight()
-                    self.configureUIElements(with: movie)
-                }
-            case .failure(let error):
-                self.presentOKAlertOnMainThread(title: "Something went wrong.", message: error.rawValue, buttonTitle: "Ok")
+            
+            DispatchQueue.main.async {
+                self.overviewHeight = UIHelper.labelHeight(text: movie.overview, font: UIFont.preferredFont(forTextStyle: .body), width: self.overviewView.frame.width-20)
+                self.modifyViewsHeight()
+                self.configureUIElements(with: movie)
             }
         }
     }
     
     func getMovieTrailers() {
-        NetworkManager.shared.getMovieTrailers(for: movieId) { [weak self] result in
+        let urlStr = "movie/\(movieId)/videos?api_key=\(apiKey)&language=en-US"
+        
+        NetworkManager.shared.fetch(restURL: urlStr) { [weak self] (trailer: Trailers) in
             guard let self = self else { return }
-
-            switch result {
-            case .success(let trailers):
-                DispatchQueue.main.async { self.oktrailers = trailers }
-            case .failure(let error):
-                self.presentOKAlertOnMainThread(title: "Something went wrong.", message: error.rawValue, buttonTitle: "Ok")
-            }
+            
+            DispatchQueue.main.async { self.oktrailers = trailer.results }
         }
     }
     
     func getMovieCast() {
-        NetworkManager.shared.getCastInfo(for: movieId) { [weak self] result in
+        let urlStr = "movie/\(movieId)/credits?api_key=\(apiKey)"
+        
+        NetworkManager.shared.fetch(restURL: urlStr) { [weak self] (cast: Cast) in
             guard let self = self else { return }
-
-            switch result {
-            case .success(let cast):
-                DispatchQueue.main.async { self.okcast = cast }
-            case .failure(let error):
-                self.presentOKAlertOnMainThread(title: "Something went wrong.", message: error.rawValue, buttonTitle: "Ok")
-            }
+            
+            DispatchQueue.main.async { self.okcast = cast.cast }
         }
     }
     

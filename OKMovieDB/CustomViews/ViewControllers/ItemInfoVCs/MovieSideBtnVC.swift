@@ -63,7 +63,7 @@ class MovieSideBtnVC: UIViewController {
             videosButton.topAnchor.constraint(equalTo: castButton.bottomAnchor, constant: padding * 2),
             videosButton.centerXAnchor.constraint(equalTo: view.centerXAnchor),
             videosButton.widthAnchor.constraint(equalToConstant: 30),
-            videosButton.heightAnchor.constraint(equalToConstant: 30),
+            videosButton.heightAnchor.constraint(equalToConstant: 30)
         ])
     }
     
